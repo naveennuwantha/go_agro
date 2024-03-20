@@ -4,7 +4,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import complaintRoute from './router/ComplaintRoute.js'
 import bodyParser from 'body-parser';
+import farmerRoute from './router/FarmerRoute.js'
 
+app.use('/farmers', farmerRoute )
 
 dotenv.config()
 
