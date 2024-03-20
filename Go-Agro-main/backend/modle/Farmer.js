@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 const FarmerSchema = new mongoose.Schema({
 
     name:{type: String, required: true},
-    userID:{type: String, required: true},
     NIC:{type: String, required: true},
     phone:{type: String, required: true},
     email:{type: String, required: true,unique: true},
