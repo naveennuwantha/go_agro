@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import complaintRoute from './router/ComplaintRoute.js'
+import reviewRoute from './router/reviewRoute.js'
 import bodyParser from 'body-parser';
 
 
@@ -39,3 +40,4 @@ connection.once("open", () =>{
 
 app.use('/complaints', complaintRoute )
 app.use('/farmers', )
+app.use('/reviews',reviewRoute);
