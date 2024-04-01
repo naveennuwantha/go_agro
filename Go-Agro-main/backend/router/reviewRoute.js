@@ -2,7 +2,7 @@ import express from 'express';
 import {Review} from '../models/reviewModel.js';
 const router = express.Router();
 
-//Route for save a new reviews
+//Route for save a new review
 router.post('/',async(request,response)=>{
     try{
         if(
@@ -68,7 +68,7 @@ router.put('/:id',async(request,response)=>{
             !request.body.publishDate 
         ){
             return response.status(400).send({
-                message: 'Send all required fields: username,content,date',
+                message: 'Send all required fields: username,content,publishDate',
             });
         }
         const {id} = request.params;
