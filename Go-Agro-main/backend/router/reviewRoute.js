@@ -9,6 +9,7 @@ router.post('/',async(request,response)=>{
             
             !request.body.username ||
             !request.body.content ||
+            !request.body.rating ||
             !request.body.publishDate 
         ){
             return response.status(400).send({
@@ -19,6 +20,7 @@ router.post('/',async(request,response)=>{
            
             username:request.body.username,
             content:request.body.content,
+            rating:request.body.rating,
             publishDate:request.body.publishDate,
         };
 
@@ -65,6 +67,7 @@ router.put('/:id',async(request,response)=>{
             
             !request.body.username ||
             !request.body.content ||
+            !request.body.rating ||
             !request.body.publishDate 
         ){
             return response.status(400).send({
