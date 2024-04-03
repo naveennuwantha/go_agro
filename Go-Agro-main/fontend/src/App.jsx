@@ -6,6 +6,11 @@ import { About } from './pages/About'
 import { SignUp } from './pages/SignUp'
 import { Login } from './pages/Login'
 import { Complaint } from './pages/Complaint'
+import ShowAll from './pages/ShowAll'
+import CreateReview from './pages/CreateReviews'
+import ShowReview from './pages/ShowReview'
+import EditReview from './pages/EditReview'
+import DeleteReview from './pages/DeleteReview'
 
 
 
@@ -13,15 +18,19 @@ import { Complaint } from './pages/Complaint'
 const App = () => {
   return (
     <div>
-      <NavBar/>
+      <NavBar />
       <Routes>
-        <Route index path='/' element={<Home/>} />
-        <Route index path='/about' element={<About/>} />
-        <Route index path='/signup' element={<SignUp/>} />
-        <Route index path='/login' element={<Login/>} />
-        <Route index path='/compaint' element={<Complaint/>} />
-     
-    
+        <Route index path='/' element={<Home />} />
+        <Route index path='/about' element={<About />} />
+        <Route index path='/signup' element={<SignUp />} />
+        <Route index path='/login' element={<Login />} />
+        <Route index path='/compaint' element={<Complaint />} />
+        <Route path='/reviews/show' element={<ShowAll />} />
+        <Route path='/reviews/create' element={<CreateReview />} />
+        <Route path='/reviews/details/:id' element={<ShowReview />} />
+        <Route path='/reviews/edit/:id' element={<EditReview />} />
+        <Route path='/reviews/delete/:id' element={<DeleteReview />} />
+
 
       </Routes>
     </div>
