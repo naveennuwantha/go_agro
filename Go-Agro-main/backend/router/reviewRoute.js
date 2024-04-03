@@ -1,5 +1,5 @@
 import express from 'express';
-import {Review} from '../models/reviewModel.js';
+import {Review} from '../modle/reviewModel.js';
 const router = express.Router();
 
 //Route for save a new review
