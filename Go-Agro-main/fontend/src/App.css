@@ -1,0 +1,57 @@
+input[type=radio] {
+    display: none;
+}
+
+.star{
+    cursor: pointer;
+}
+
+/* Update the basic color to green */
+.bg-green-400 {
+    background-color: #2AA244; /* Update to your preferred shade of green */
+  }
+  
+  /* Additional styles for the input field */
+  .input-field {
+    border-width: 2px;
+    border-color: #111827;
+    padding: 0.5rem 1rem;
+    width: 60%;
+    border-radius: 0.5rem; /* Add rounded corners */
+  }
+  
+  /* Additional styles for the star rating */
+  .star {
+    margin-right: 0.5rem; /* Add spacing between stars */
+  }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: max-content;
+    background-color: rgba(60, 139, 81, 0.8);
+    color: #0e0d0d;
+    text-align: center;
+    border-radius: 4px;
+    padding: 8px;
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  
+
+  
