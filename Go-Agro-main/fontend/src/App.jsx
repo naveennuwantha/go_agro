@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { NavBar } from './components/navbar/NavBar'
+import { NavBar3 } from './components/navbar/NavBar3'
 import { Home } from './pages/Home'
 import { About } from './pages/About'
 import { SignUp } from './pages/SignUp'
@@ -18,7 +18,7 @@ import DeleteReview from './pages/DeleteReview'
 const App = () => {
   return (
     <div>
-      <NavBar />
+      <NavBar3 />
       <Routes>
         <Route index path='/' element={<Home />} />
         <Route index path='/about' element={<About />} />
