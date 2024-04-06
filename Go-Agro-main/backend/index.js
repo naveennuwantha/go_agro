@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import complaintRoute from './router/ComplaintRoute.js';
-import farmerRoute from './router/FarmerRoute.js'; // Assuming you have a FarmerRoute
+import farmerRoute from './router/FarmerRoute.js';
+import listRoute from './router/listRoute.js';
 import bodyParser from 'body-parser';
 
 dotenv.config();
@@ -36,4 +37,5 @@ connection.once("open", () =>{
 
 // Routes
 app.use('/complaints', complaintRoute);
-app.use('/farmers', farmerRoute); // Use the farmerRoute for farmer-related routes
+app.use('/farmers', farmerRoute);
+app.use('/listings', listRoute);

@@ -15,14 +15,12 @@ const listSchema = mongoose.Schema(
         required: true,
     },
     dateAdded:{
-        type: String,
+        type: Date,
         required: true,
 },
 
 },
-{
-    timestamps: true,
-}
+
 );
 
 export const List = mongoose.model('listings',listSchema);
