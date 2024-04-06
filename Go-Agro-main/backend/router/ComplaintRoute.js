@@ -1,5 +1,5 @@
 import express from 'express'
-import Complait from '../modle/Complain.js'
+import Complait from '../models/Complain.js'
 
 
 const router = express.Router()

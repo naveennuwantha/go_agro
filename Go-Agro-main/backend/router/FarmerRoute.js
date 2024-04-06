@@ -1,5 +1,5 @@
 import express from 'express'
-import Farmer from '../modle/Farmer.js'
+import Farmer from '../models/Farmer.js'
 
 
 
