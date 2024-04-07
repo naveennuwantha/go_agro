@@ -18,9 +18,11 @@ const listSchema = mongoose.Schema(
         type: Date,
         required: true,
 },
-
 },
+{
+    timestamps: true,
+}
 
 );
 
-export const List = mongoose.model('listings',listSchema);
+export const List = mongoose.model('List',listSchema);

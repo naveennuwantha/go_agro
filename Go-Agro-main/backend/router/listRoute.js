@@ -25,9 +25,9 @@ router.post('/',async(request,response)=>{
             dateAdded:request.body.dateAdded,
         };
 
-        const list = await List.create(newList);
+        const listings = await List.create(newList);
 
-        return response.status(201).send(list);
+        return response.status(201).send(listings);
     }catch(error){
         console.log(error.message);
         response.status(500).send({message:error.message});
