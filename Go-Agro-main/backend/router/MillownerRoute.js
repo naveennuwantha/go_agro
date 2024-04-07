@@ -1,6 +1,6 @@
 import express from 'express';
 import bcrypt from 'bcrypt'
-import Farmer from '../modle/Farmer.js'
+import Millowner from '../modle/Millowner.js'
 import jwt from 'jsonwebtoken'
 
 
@@ -12,13 +12,13 @@ const router = express.Router()
 
 router.post('/', async (req, res) => {
     const { name,  NIC , phone , role, about, email , isApproved, password, address } = req.body;
-    const user = await Farmer.findOne({ email });
+    const user = await Millowner.findOne({ email });
     if (user) {
         return res.json({ message: "User already exists" });
         
     }
     const hashPassword = await bcrypt.hash(password, 10);
-    const newFarmer = new Farmer({
+    const newMillowner = new Millowner({
         name,
         NIC,
         phone,
@@ -29,19 +29,19 @@ router.post('/', async (req, res) => {
         password: hashPassword
     });
 
-    await newFarmer.save();
+    await newMillowner.save();
     return res.json({ message: "Registered" });
 });
 
-router.get('/', async(req,res)=>{ // view all farmers
+router.get('/', async(req,res)=>{ // view all Millowners
 
     try{
 
-        const farmers = await Farmer.find({})
+        const Millowners = await Millowner.find({})
 
         return res.status(200).json({
             
-            data: farmers
+            data: Millowners
         })
 
     }catch(err){
@@ -50,16 +50,16 @@ router.get('/', async(req,res)=>{ // view all farmers
     }
 }) 
 
-router.get('/:id', async(req,res)=>{ // view one farmer
+router.get('/:id', async(req,res)=>{ // view one Millowner
 
     try{
 
         const {id} = req.params;
-        const farmer = await Farmer.findById(id)
+        const Millowner = await Millowner.findById(id)
 
         return res.status(200).json({
             
-            data: farmer
+            data: Millowner
         })
 
     }catch(err){
@@ -68,7 +68,7 @@ router.get('/:id', async(req,res)=>{ // view one farmer
     }
 }) 
 
-router.put('/:id', async(req, res)=>{ // update farmer
+router.put('/:id', async(req, res)=>{ // update Millowner
 
     try {
 
@@ -85,7 +85,7 @@ router.put('/:id', async(req, res)=>{ // update farmer
         }
 
         const {id} = req.params;
-        const result = await Farmer.findByIdAndUpdate(id, req.body)
+        const result = await Millowner.findByIdAndUpdate(id, req.body)
 
         if(!result){
             return res.status(404).json({message: 'complaint not found'})
@@ -101,12 +101,12 @@ router.put('/:id', async(req, res)=>{ // update farmer
     }
 })
 
-router.delete('/:id', async(req,res)=>{ // view one farmer
+router.delete('/:id', async(req,res)=>{ // view one Millowner
 
     try{
 
         const {id} = req.params;
-        const result = await Farmer.findByIdAndDelete(id)
+        const result = await Millowner.findByIdAndDelete(id)
 
         if(!result){
             return res.status(404).send({message:'complaint not found'})
@@ -124,7 +124,7 @@ router.delete('/:id', async(req,res)=>{ // view one farmer
 router.post('/login', async (req, res) => { //Login
     const { email, password } = req.body;
     try {
-        const user = await Farmer.findOne({ email });
+        const user = await Millowner.findOne({ email });
         if (!user) {
             return res.status(401).json({ message: "Invalid email " });
         }
