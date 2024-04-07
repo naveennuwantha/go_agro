@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
 import './Signup.css'
 
-  
+
 
 export const SignUp = () => {
 
-   
+
   return (
-    <div style={{}}className='main'>
+    <div style={{}} className='main'>
       <h2 className=' text-5xl font-serif  ' >Sign Up</h2>
       <form>
         <div className='inputs'>
@@ -16,9 +15,9 @@ export const SignUp = () => {
             type="text"
             id="username"
             name="username"
-            
+
           />
-          
+
         </div>
         <div className='inputs'>
           <label htmlFor="email">Email:</label>
@@ -26,9 +25,9 @@ export const SignUp = () => {
             type="email"
             id="email"
             name="email"
-            
+
           />
-          
+
         </div>
         <div className='inputs'>
           <label htmlFor="password"  >Password:</label>
@@ -36,9 +35,9 @@ export const SignUp = () => {
             type="password"
             id="password"
             name="password"
-            
+
           />
-          
+
         </div>
         <div className='inputs' >
           <label htmlFor="confirmPassword">Confirm Password:</label>
@@ -47,7 +46,7 @@ export const SignUp = () => {
             id="confirmPassword"
             name="confirmPassword"
           />
-          
+
         </div>
         <div className='inputs' >
           <label htmlFor="address">Address:</label>
@@ -56,7 +55,7 @@ export const SignUp = () => {
             id="address"
             name="address"
           />
-          
+
         </div>
         <div className='inputs' >
           <label htmlFor="confirmPassword">Confirm Password:</label>
@@ -66,7 +65,7 @@ export const SignUp = () => {
           <select >
 
           </select>
-          
+
         </div>
         <button className='button' type="submit" >
           Sign Up
