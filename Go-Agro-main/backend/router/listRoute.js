@@ -1,38 +1,24 @@
 import express from 'express';
-import {List} from '../models/listModel.js';
+import List from '../models/listModel.js';
 
 const router = express.Router();
 
 // Route for saving a new list
-router.post('/',async(request,response)=>{
-    try{
-        if(
-            
-            !request.body.paddyType ||
-            !request.body.quantity ||
-            !request.body.pricePer1kg ||
-            !request.body.dateAdded
-        ){
-            return response.status(400).send({
-                message: 'Send all required fields: paddyType,quantity,pricePer1kg,dateAdded',
-            });
-        }
-        const newList={
-           
-            paddyType:request.body.paddyType,
-            quantity:request.body.quantity,
-            pricePer1kg:request.body.pricePer1kg,
-            dateAdded:request.body.dateAdded,
-        };
+router.post('/', async (req, res) => {
+    try {
+        const { paddyType, quantity, pricePer1kg } = req.body;
 
-        const listings = await List.create(newList);
+        const newList = new List({
+            paddyType,
+            quantity,
+            pricePer1kg
+        });
 
-        return response.status(201).send(listings);
-    }catch(error){
-        console.log(error.message);
-        response.status(500).send({message:error.message});
+        await newList.save();
+        return res.json({ message: "List created" });
+    } catch (error) {
+        return res.status(500).json({ error: "Internal server error" });
     }
-
 });
 
 // Route for getting all list items from the database
@@ -69,11 +55,11 @@ router.put('/:id',async(request,response)=>{
             
             !request.body.paddyType ||
             !request.body.quantity ||
-            !request.body.pricePer1kg ||
-            !request.body.dateAdded
+            !request.body.pricePer1kg
+            
         ){
             return response.status(400).send({
-                message: 'Send all required fields: paddyType,quantity,pricePer1kg,dateAdded',
+                message: 'Send all required fields: paddyType,quantity,pricePer1kg',
             });
         }
         const {id} = request.params;

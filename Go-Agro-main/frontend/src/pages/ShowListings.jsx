@@ -8,15 +8,15 @@ import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import '../App.css';
 
 const ShowListings = () => {
-    const [listings, setListings] = useState([]);
+    const [lists, setLists] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/listings`)
+            .get(`http://localhost:5555/lists`)
             .then((response) => {
-                setListings(response.data);
+                setLists(response.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -28,7 +28,7 @@ const ShowListings = () => {
         <div className='p-4'>
             <div className='flex justify-between items-center'>
                 <h1 className='text-3xl my-8'>List of Available Rice</h1>
-                <Link to='/listings/create'>
+                <Link to='/lists/create'>
                     <MdOutlineAddBox className='text-sky-800 text-4xl' />
                 </Link>
             </div>
@@ -42,12 +42,11 @@ const ShowListings = () => {
                             <th className='border border-slate-600 rounded-md'> Paddy Type</th>
                             <th className='border border-slate-600 rounded-md'>Quantity</th>
                             <th className='border border-slate-600 rounded-md'>Price Per 1KG</th>
-                            <th className='border border-slate-600 rounded-md'>Date Added</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        {listings.map((list, index) => (
+                        {lists.map((list, index) => (
                             <tr key={list._id} className='h-8'>
                                 <td className='border border-slate-700 rounded-md text-center'>
                                     {index + 1}
@@ -60,9 +59,6 @@ const ShowListings = () => {
                                 </td>
                                 <td className='border border-slate-700 rounded-md text-center'>
                                     {list.pricePer1kg}
-                                </td>
-                                <td className='border border-slate-700 rounded-md text-center'>
-                                    {list.dateAdded}
                                 </td>
                                 <td className='border border-slate-700 rounded-md text-center'>
                                     <div className='flex justify-center gap-x-4'>

@@ -21,15 +21,15 @@ const App = () => {
         <Route index path='/signup' element={<SignUp />} />
         <Route index path='/login' element={<Login />} />
         <Route index path='/compaint' element={<Complaint />} />
-        <Route index path='/listings/show' element={<ShowListings />} />
-        <Route index path='/listings/create' element={<CreateList />} />
-        <Route index path='/listings/details/:id' element={<ShowList />} />
-        <Route index path='/listings/edit/:id' element={<EditList />} />
-        <Route index path='/listings/delete/:id' element={<DeleteList />} />
+        <Route index path='/lists/show' element={<ShowListings />} />
+        <Route index path='/lists/create' element={<CreateList />} />
+        <Route index path='/lists/details/:id' element={<ShowList />} />
+        <Route index path='/lists/edit/:id' element={<EditList />} />
+        <Route index path='/lists/delete/:id' element={<DeleteList />} />
 
       </Routes>
     </div>
   )
 }
 
-export default App
+export default App;

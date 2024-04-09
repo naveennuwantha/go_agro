@@ -1,28 +1,27 @@
 import mongoose from "mongoose";
 
-const listSchema = mongoose.Schema(
-    {
-    paddyType:{
-        type: String,
-        required: true,
-    },
-    quantity:{
-        type: String,
-        required: true,
-    },
-    pricePer1kg:{
-        type: String,
-        required: true,
-    },
-    dateAdded:{
-        type: Date,
-        required: true,
-},
-},
-{
-    timestamps: true,
-}
+const { Schema, model } = mongoose;
 
+const listSchema = new Schema(
+    {
+        paddyType: {
+            type: String,
+            required: true,
+        },
+        quantity: {
+            type: Number,
+            required: true,
+        },
+        pricePer1kg: {
+            type: Number,
+            required: true,
+        },
+    },
+    {
+        timestamps: true,
+    }
 );
 
-export const List = mongoose.model('List',listSchema);
+const List = model('List', listSchema);
+
+export default List;

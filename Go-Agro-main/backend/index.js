@@ -26,9 +26,7 @@ app.listen(port, () => {
 // Database connection
 const URL = process.env.MONGO_URL;
 
-mongoose.connect(URL, {
-    // Add mongoose options if needed
-}); 
+mongoose.connect(URL); 
 
 const connection = mongoose.connection;
 connection.once("open", () =>{
@@ -38,4 +36,4 @@ connection.once("open", () =>{
 // Routes
 app.use('/complaints', complaintRoute);
 app.use('/farmers', farmerRoute);
-app.use('/listings', listRoute);
+app.use('/lists', listRoute);
