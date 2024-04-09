@@ -20,7 +20,7 @@ const CreateList = () => {
         };
         setLoading(true);
         axios
-            .post('http://localhost:5555/mills', data)
+            .post('http://localhost:5000/lists', data)
             .then(() => {
                 setLoading(false);
                 navigate('/');
@@ -37,7 +37,7 @@ const CreateList = () => {
             <BackButton />
             <h1 className='text-3xl my-4'>Create List</h1>
             {loading ? <Spinner /> : ''}
-            <div className='flex flex-col border-2 border-sky-400 rounded-x1 w-[600px] p-4 mx-auto'>
+            <div className='flex flex-col border-2 border-green-600 rounded-x1 w-[600px] p-4 mx-auto'>
                 <div className='my-4'>
                     <lable className='text-xl mr-4 text-gray-500'>Paddy Type</lable>
                     <input
@@ -62,10 +62,10 @@ const CreateList = () => {
                         onChange={(e) => setPricePer1Kg(e.target.value)}
                         className='border-2 border-gray-500 px-4 py-2 w-full' />
                 </div>
-                <button className='p-2 bg-sky-300 m-8' onClick={handleSaveMill}>Save</button>
+                <button className='p-2 bg-green-600 m-8' onClick={handleSaveMill}>Save</button>
             </div>
         </div>
     )
 }
 
-export default CreateList
+export default CreateList;

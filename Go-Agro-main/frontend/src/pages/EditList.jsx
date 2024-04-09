@@ -4,7 +4,6 @@ import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 
-
 const EditList = () => {
     const [paddyType, setPaddyType] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -12,6 +11,7 @@ const EditList = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
+
     useEffect(() => {
         setLoading(true);
         axios.get(`http://localhost:5555/listings/${id}`)
@@ -19,14 +19,15 @@ const EditList = () => {
                 setPricePer1Kg(response.data.pricePer1kg);
                 setQuantity(response.data.quantity);
                 setPaddyType(response.data.paddyType);
-                setLoading(false)
-            }).catch((error) => {
+                setLoading(false);
+            })
+            .catch((error) => {
                 setLoading(false);
                 alert('An error happened. Please check console');
                 console.log(error);
-
             });
-    })
+    }, []); // Empty dependency array ensures useEffect runs only once after initial render
+
     const handleEditList = () => {
         const data = {
             paddyType,
@@ -35,7 +36,7 @@ const EditList = () => {
         };
         setLoading(true);
         axios
-            .put(`http://localhost:5555/mills/${id}`, data)
+            .put(`http://localhost:5555/listings/${id}`, data) // Corrected URL endpoint
             .then(() => {
                 setLoading(false);
                 navigate('/');
@@ -54,7 +55,7 @@ const EditList = () => {
             {loading ? <Spinner /> : ''}
             <div className='flex flex-col border-2 border-sky-400 rounded-x1 w-[600px] p-4 mx-auto'>
                 <div className='my-4'>
-                    <lable className='text-xl mr-4 text-gray-500'>Paddy Type</lable>
+                    <label className='text-xl mr-4 text-gray-500'>Paddy Type</label>
                     <input
                         type='text'
                         value={paddyType}
@@ -62,7 +63,7 @@ const EditList = () => {
                         className='border-2 border-gray-500 px-4 py-2 w-full' />
                 </div>
                 <div className='my-4'>
-                    <lable className='text-xl mr-4 text-gray-500'>Quantity</lable>
+                    <label className='text-xl mr-4 text-gray-500'>Quantity</label>
                     <input
                         type='number'
                         value={quantity}
@@ -70,7 +71,7 @@ const EditList = () => {
                         className='border-2 border-gray-500 px-4 py-2 w-full' />
                 </div>
                 <div className='my-4'>
-                    <lable className='text-xl mr-4 text-gray-500'>Price Per 1KG</lable>
+                    <label className='text-xl mr-4 text-gray-500'>Price Per 1KG</label>
                     <input
                         type='number'
                         value={pricePer1kg}
@@ -80,7 +81,7 @@ const EditList = () => {
                 <button className='p-2 bg-sky-300 m-8' onClick={handleEditList}>Save</button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default EditList
+export default EditList;

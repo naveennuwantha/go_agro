@@ -3,9 +3,9 @@ import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
+import { MdOutlineDelete, MdOutlineAddBox } from 'react-icons/md';
 import { BsInfoCircle } from 'react-icons/bs';
-import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
-import '../App.css';
+
 
 const ShowListings = () => {
     const [lists, setLists] = useState([]);
@@ -14,7 +14,7 @@ const ShowListings = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get(`http://localhost:5555/lists`)
+            .get(`http://localhost:5000/lists`)
             .then((response) => {
                 setLists(response.data);
                 setLoading(false);
@@ -26,10 +26,10 @@ const ShowListings = () => {
     }, []);
     return (
         <div className='p-4'>
-            <div className='flex justify-between items-center'>
-                <h1 className='text-3xl my-8'>List of Available Rice</h1>
+            <div className='flex justify-center'>
+                <h1 className='text-3xl my-8 text-green-700'>List of available rice</h1>
                 <Link to='/lists/create'>
-                    <MdOutlineAddBox className='text-sky-800 text-4xl' />
+                    <MdOutlineAddBox className='text-green-500 text-2xl justify-center' />
                 </Link>
             </div>
             {loading ? (
@@ -42,6 +42,8 @@ const ShowListings = () => {
                             <th className='border border-slate-600 rounded-md'> Paddy Type</th>
                             <th className='border border-slate-600 rounded-md'>Quantity</th>
                             <th className='border border-slate-600 rounded-md'>Price Per 1KG</th>
+                            <th className='border border-slate-600 rounded-md'>Operations</th>
+
 
                         </tr>
                     </thead>
@@ -62,17 +64,17 @@ const ShowListings = () => {
                                 </td>
                                 <td className='border border-slate-700 rounded-md text-center'>
                                     <div className='flex justify-center gap-x-4'>
-                                        <Link to={`/listings/details/${list._id}`} className="tooltip" title="View Details" >
+                                        <Link to={`/lists/details/${list._id}`} className="tooltip" title="View Details" >
                                             <BsInfoCircle className='text-xl text-green-800' />
-                                            <span className="tooltiptext">View Details</span>
+
                                         </Link>
-                                        <Link to={`/listings/edit/${list._id}`} className="tooltip" title="Edit List">
+                                        <Link to={`/lists/edit/${list._id}`} className="tooltip" title="Edit List">
                                             <AiOutlineEdit className='text-xl text-yellow-600' />
-                                            <span className="tooltiptext">Edit List</span>
+
                                         </Link>
-                                        <Link to={`/listings/delete/${list._id}`} className="tooltip" title="Delete List">
+                                        <Link to={`/lists/delete/${list._id}`} className="tooltip" title="Delete List">
                                             <MdOutlineDelete className='text-xl text-red-600' />
-                                            <span className="tooltiptext">Delete List</span>
+
                                         </Link>
                                     </div>
                                 </td>
@@ -82,7 +84,7 @@ const ShowListings = () => {
                 </table>
             )}
         </div>
-    )
-}
+    );
+};
 
 export default ShowListings;
