@@ -10,6 +10,7 @@ import CreateList from './pages/CreateList'
 import ShowList from './pages/ShowList'
 import EditList from './pages/EditList'
 import DeleteList from './pages/DeleteList'
+import Dashboard from './pages/Dashboard'
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route index path='/lists/edit/:id' element={<EditList />} />
         <Route index path='/lists/delete/:id' element={<DeleteList />} />
         <Route index path='/search/:searchTerm' element={<ShowListings />} />
+        <Route index path='/dashboard' element={<Dashboard />} />
 
       </Routes>
     </div>
