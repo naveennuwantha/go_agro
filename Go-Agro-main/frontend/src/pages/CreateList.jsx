@@ -3,6 +3,7 @@ import axios from 'axios';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 
 const CreateList = () => {
@@ -12,7 +13,9 @@ const CreateList = () => {
 
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const handleSaveMill = () => {
+    const { enqueueSnackbar } = useSnackbar();
+
+    const handleSaveList = () => {
         const data = {
             paddyType,
             quantity,
@@ -23,11 +26,12 @@ const CreateList = () => {
             .post('http://localhost:5000/lists', data)
             .then(() => {
                 setLoading(false);
+                enqueueSnackbar('List created successfully', { variant: 'success' });
                 navigate('/');
             })
             .catch((error) => {
                 setLoading(false);
-                alert('An error happened. Please check console');
+                enqueueSnackbar('Error', { variant: 'error' });
                 console.log(error);
             });
     };
@@ -62,7 +66,7 @@ const CreateList = () => {
                         onChange={(e) => setPricePer1Kg(e.target.value)}
                         className='border-2 border-gray-500 px-4 py-2 w-full' />
                 </div>
-                <button className='p-2 bg-green-600 m-8' onClick={handleSaveMill}>Save</button>
+                <button className='p-2 bg-green-600 m-8' onClick={handleSaveList}>Save</button>
             </div>
         </div>
     )

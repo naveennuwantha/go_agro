@@ -3,6 +3,7 @@ import axios from 'axios';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const EditList = () => {
     const [paddyType, setPaddyType] = useState('');
@@ -11,6 +12,7 @@ const EditList = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
+    const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
         setLoading(true);
@@ -26,7 +28,7 @@ const EditList = () => {
                 alert('An error happened. Please check console');
                 console.log(error);
             });
-    }, []); // Empty dependency array ensures useEffect runs only once after initial render
+    }, [id]) // Empty dependency array ensures useEffect runs only once after initial render
 
     const handleEditList = () => {
         const data = {
@@ -39,11 +41,12 @@ const EditList = () => {
             .put(`http://localhost:5555/listings/${id}`, data) // Corrected URL endpoint
             .then(() => {
                 setLoading(false);
+                enqueueSnackbar('List edited successfully', { variant: 'success' });
                 navigate('/');
             })
             .catch((error) => {
                 setLoading(false);
-                alert('An error happened. Please check console');
+                enqueueSnackbar('Error', { variant: 'error' });
                 console.log(error);
             });
     };

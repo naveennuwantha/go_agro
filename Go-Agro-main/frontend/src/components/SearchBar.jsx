@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import { useState } from 'react';
 import './SearchBar.css'
 
 
@@ -16,14 +16,14 @@ export const SearchBar = () => {
   return (
 
     <div className={`search-bar ${isFocused ? 'focused' : ''}`}>
-        <input
+      <input
         type="text"
         placeholder="Search..."
         onFocus={handleFocus}
         onBlur={handleBlur}
-        />
-        <button>Search</button>
+      />
+      <button>Search</button>
     </div>
-    
+
   )
 }
