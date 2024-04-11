@@ -5,8 +5,7 @@ import { Home } from './pages/Home'
 import { About } from './pages/About'
 import { SignUp } from './pages/SignUp'
 import { Login } from './pages/Login'
-import { Complaint } from './pages/Complaint'
-
+import { AdminDashboard } from './pages/AdminDashboard'
 
 
 
@@ -19,9 +18,7 @@ const App = () => {
         <Route index path='/about' element={<About/>} />
         <Route index path='/signup' element={<SignUp/>} />
         <Route index path='/login' element={<Login/>} />
-        <Route index path='/compaint' element={<Complaint/>} />
-     
-    
+        <Route index path='/admin' element={<AdminDashboard/>} />
 
       </Routes>
     </div>
