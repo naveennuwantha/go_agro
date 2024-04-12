@@ -10,16 +10,18 @@ export const NavBar3 = () => {
 
       <ul className='list1 flex flex-row gap-10 text-lg  text-white  font-extralight font-serif'>
 
-        <Link to="/"><li>Home</li></Link>
-        <Link to="/"><li>Name</li></Link>
 
-        <Link to="/contact"><li className='mt-2'><FaBell /></li></Link>
-        <Link to="/contact"><li className='mt-2'><FaUserLarge /></li></Link>
+        <Link to={/complaint/${farmer.email}}><li>Make Complaints</li></Link>
+      <Link to="/"><li>Logout</li></Link>
+      <Link to="/"><li>Contact Us</li></Link>
+
+      <Link to="/#"><li className='mt-2'><FaBell /></li></Link>
+      <Link to="/#"><li className='mt-2'><FaUserLarge /></li></Link>
 
 
 
-      </ul>
-    </nav>
+    </ul>
+        </nav >
   )
 }
 
