@@ -1,17 +1,38 @@
 import express from 'express';
 import List from '../models/listModel.js';
+import multer from 'multer';
 
 const router = express.Router();
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads'); // Define the destination folder for uploaded files
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname); // Keep the original filename
+    }
+});
+
+const upload = multer({ storage: storage }); 
+
 // Route for saving a new list
-router.post('/', async (req, res) => {
+router.post('/', upload.single('image'), async (req, res) => {
     try {
         const { paddyType, quantity, pricePer1kg } = req.body;
+
+        if (!req.file) {
+            return res.status(400).json({ error: 'No image provided' });
+        }
 
         const newList = new List({
             paddyType,
             quantity,
-            pricePer1kg
+            pricePer1kg,
+            image : {
+                data: req.file.buffer,
+                contentType: req.file.mimetype
+            },
+
         });
 
         await newList.save();
@@ -55,11 +76,12 @@ router.put('/:id',async(request,response)=>{
             
             !request.body.paddyType ||
             !request.body.quantity ||
-            !request.body.pricePer1kg
+            !request.body.pricePer1kg||
+            !request.body.image
             
         ){
             return response.status(400).send({
-                message: 'Send all required fields: paddyType,quantity,pricePer1kg',
+                message: 'Send all required fields: paddyType,quantity,pricePer1kg,image',
             });
         }
         const {id} = request.params;

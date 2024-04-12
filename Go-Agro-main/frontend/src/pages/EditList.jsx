@@ -9,6 +9,7 @@ const EditList = () => {
     const [paddyType, setPaddyType] = useState('');
     const [quantity, setQuantity] = useState('');
     const [pricePer1kg, setPricePer1Kg] = useState('');
+    const [image, setImage] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
@@ -16,11 +17,12 @@ const EditList = () => {
 
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://localhost:5555/listings/${id}`)
+        axios.get(`http://localhost:5000/lists/${id}`)
             .then((response) => {
                 setPricePer1Kg(response.data.pricePer1kg);
                 setQuantity(response.data.quantity);
                 setPaddyType(response.data.paddyType);
+                setImage(response.data.image);
                 setLoading(false);
             })
             .catch((error) => {
@@ -28,17 +30,18 @@ const EditList = () => {
                 alert('An error happened. Please check console');
                 console.log(error);
             });
-    }, [id]) // Empty dependency array ensures useEffect runs only once after initial render
+    }, [id])
 
     const handleEditList = () => {
         const data = {
             paddyType,
             quantity,
-            pricePer1kg
+            pricePer1kg,
+            image
         };
         setLoading(true);
         axios
-            .put(`http://localhost:5555/listings/${id}`, data) // Corrected URL endpoint
+            .put(`http://localhost:5000/lists/${id}`, data)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('List edited successfully', { variant: 'success' });
@@ -56,7 +59,7 @@ const EditList = () => {
             <BackButton />
             <h1 className='text-3xl my-4'>Edit Details</h1>
             {loading ? <Spinner /> : ''}
-            <div className='flex flex-col border-2 border-sky-400 rounded-x1 w-[600px] p-4 mx-auto'>
+            <div className='flex flex-col border-2 border-green-400 rounded-x1 w-[600px] p-4 mx-auto'>
                 <div className='my-4'>
                     <label className='text-xl mr-4 text-gray-500'>Paddy Type</label>
                     <input
@@ -81,7 +84,14 @@ const EditList = () => {
                         onChange={(e) => setPricePer1Kg(e.target.value)}
                         className='border-2 border-gray-500 px-4 py-2 w-full' />
                 </div>
-                <button className='p-2 bg-sky-300 m-8' onClick={handleEditList}>Save</button>
+                <div className='my-4'>
+                    <label className='text-xl mr-4 text-gray-500'>Upload Image Here</label>
+                    <input
+                        type='file'
+                        onChange={(e) => setImage(e.target.files[0])}
+                        className='border-2 border-gray-500 px-4 py-2 w-full' />
+                </div>
+                <button className='p-2 bg-green-600 m-8' onClick={handleEditList}>Save</button>
             </div>
         </div>
     );

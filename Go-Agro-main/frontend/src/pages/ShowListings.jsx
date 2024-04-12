@@ -8,7 +8,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 import { getAll, search } from '../services/list';
 import Search from '../components/Search/Search';
-
+import './ShowListings.css'
 
 const ShowListings = () => {
     const [lists, setLists] = useState([]);
@@ -44,54 +44,41 @@ const ShowListings = () => {
     return (
         <>
             <Search />
-            <div className='p-4'>
-                <div className='flex justify-center'>
-                    <h1 className='text-3xl my-8 text-green-700'>List of available rice</h1>
-                    <Link to='/lists/create'>
-                        <MdOutlineAddBox className='text-green-500 text-2xl justify-center' />
-                    </Link>
-                </div>
+            <div className='p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                 {loading ? (
                     <Spinner />
                 ) : (
-                    <table className='w-full border-separate border-spacing-2'>
-                        <thead>
-                            <tr>
-                                <th className='border border-slate-600 rounded-md'>Index</th>
-                                <th className='border border-slate-600 rounded-md'> Paddy Type</th>
-                                <th className='border border-slate-600 rounded-md'>Quantity</th>
-                                <th className='border border-slate-600 rounded-md'>Price Per 1KG</th>
-                                <th className='border border-slate-600 rounded-md'>Operations</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {lists.map((list, index) => (
-                                <tr key={list._id} className='h-8'>
-                                    <td className='border border-slate-700 rounded-md text-center'>{index + 1}</td>
-                                    <td className='border border-slate-700 rounded-md text-center'>{list.paddyType}</td>
-                                    <td className='border border-slate-700 rounded-md text-center'>{list.quantity}</td>
-                                    <td className='border border-slate-700 rounded-md text-center'>{list.pricePer1kg}</td>
-                                    <td className='border border-slate-700 rounded-md text-center'>
-                                        <div className='flex justify-center gap-x-4'>
-                                            <Link to={`/lists/details/${list._id}`} className='tooltip' title='View Details'>
-                                                <BsInfoCircle className='text-xl text-green-800' />
-                                            </Link>
-                                            <Link to={`/lists/edit/${list._id}`} className='tooltip' title='Edit List'>
-                                                <AiOutlineEdit className='text-xl text-yellow-600' />
-                                            </Link>
-                                            <Link to={`/lists/delete/${list._id}`} className='tooltip' title='Delete List'>
-                                                <MdOutlineDelete className='text-xl text-red-600' />
-                                            </Link>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    lists.map((list) => (
+                        <div key={list._id} className='bg-white rounded-lg shadow-md'>
+                            <img src={`http://localhost:5000/${list.image}`} alt={list.paddyType} className='w-full h-32 object-cover rounded-t-lg' />
+                            <div className='p-4'>
+                                <h2 className='text-xl font-semibold mb-4 text-gray-800'>{list.paddyType}</h2>
+                                <p className='text-gray-600 mb-2'>{list.quantity} Kg</p>
+                                <p className='text-gray-600 mb-2'>{list.pricePer1kg} Rs per 1Kg</p>
+                            </div>
+                            <div className='flex justify-between p-4 border-t border-gray-200'>
+                                <Link to={`/lists/details/${list._id}`} className='text-green-600 hover:text-green-800'>
+                                    <BsInfoCircle className='text-xl text-green-800' />
+                                </Link>
+                                <div className='flex gap-2'>
+                                    <Link to={`/lists/edit/${list._id}`} className='text-yellow-600 hover:text-yellow-800'>
+                                        <AiOutlineEdit className='text-xl text-yellow-600' />
+                                    </Link>
+                                    <Link to={`/lists/delete/${list._id}`} className='text-red-600 hover:text-red-800'>
+                                        <MdOutlineDelete className='text-xl text-red-600' />
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    ))
                 )}
             </div>
+            <Link to='/lists/create' className='fixed bottom-4 right-4'>
+                <MdOutlineAddBox className='text-4xl text-green-500' />
+            </Link>
         </>
     );
 };
 
 export default ShowListings;
+

@@ -16,6 +16,10 @@ const listSchema = new Schema(
             type: Number,
             required: true,
         },
+        image: {
+            data: Buffer,
+            contentType: [String],
+        },
     },
     {
         timestamps: true,
