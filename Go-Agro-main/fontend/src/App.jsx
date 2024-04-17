@@ -11,6 +11,7 @@ import CreateReview from './pages/CreateReview'
 import ShowReview from './pages/ShowReview'
 import EditReview from './pages/EditReview'
 import DeleteReview from './pages/DeleteReview'
+import Notification from './pages/Notification'
 
 
 
@@ -30,6 +31,7 @@ const App = () => {
         <Route path='/reviews/details/:id' element={<ShowReview />} />
         <Route path='/reviews/edit/:id' element={<EditReview />} />
         <Route path='/reviews/delete/:id' element={<DeleteReview />} />
+        <Route  path='/notification' element={<Notification />} />
 
 
       </Routes>

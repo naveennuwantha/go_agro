@@ -13,7 +13,7 @@ export const NavBar3 = () => {
         <Link to="/"><li>Home</li></Link>
         <Link to="/"><li>Name</li></Link>
         
-        <Link to="/contact"><li className='mt-2'><FaBell/></li></Link>
+        <Link to="/notification"><li className='mt-2'><FaBell/></li></Link>
         <Link to="/contact"><li className='mt-2'><FaUserLarge/></li></Link>
        
         
