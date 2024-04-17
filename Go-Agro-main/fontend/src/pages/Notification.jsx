@@ -1,36 +1,50 @@
-// Notification.jsx
-
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchNotifications } from '../redux/notificationActions';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const NotificationPage = () => {
-  const dispatch = useDispatch();
-  const { notifications, loading, error } = useSelector(state => state.notification);
+    const [notifications, setNotifications] = useState([]);
 
-  useEffect(() => {
-    dispatch(fetchNotifications());
-  }, [dispatch]);
+    useEffect(() => {
+        fetchNotifications();
+    }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+    const fetchNotifications = async () => {
+        try {
+            const response = await axios.get('/notifications');
+            if (Array.isArray(response.data)) {
+                setNotifications(response.data);
+            } else {
+                console.error('Invalid data format:', response.data);
+            }
+        } catch (error) {
+            console.error('Error fetching notifications:', error);
+        }
+    };
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+    const deleteNotification = async (id) => {
+        try {
+            await axios.delete(`/notifications/${id}`);
+            fetchNotifications();
+        } catch (error) {
+            console.error('Error deleting notification:', error);
+        }
+    };
 
-  return (
-    <div>
-      <h1>Notifications</h1>
-      {notifications && notifications.map(notification => (
-        <div key={notification.id}>
-          <p>{notification.message}</p>
-          <button onClick={() => handleDelete(notification.id)}>Delete</button>
+    return (
+        <div>
+            <h1>Notifications</h1>
+            <ul>
+                {notifications.map(notification => (
+                    <li key={notification._id}>
+                        <p>{notification.message}</p>
+                        <p>{notification.createdAt}</p>
+                        <a href={notification.onClickPath} target="_blank" rel="noopener noreferrer">Go to Link</a>
+                        <button onClick={() => deleteNotification(notification._id)}>Delete</button>
+                    </li>
+                ))}
+            </ul>
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 export default NotificationPage;
