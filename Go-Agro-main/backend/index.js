@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import complaintRoute from './router/ComplaintRoute.js';
 import reviewRoute from './router/reviewRoute.js';
 import farmerRoute from './router/FarmerRoute.js';
+import notificationRoute from './router/notificationRoute.js';
 import bodyParser from 'body-parser';
 
 dotenv.config();
@@ -35,4 +36,5 @@ connection.once("open", () => {
 app.use('/complaints', complaintRoute);
 app.use('/farmers', farmerRoute);
 app.use('/reviews', reviewRoute);
+app.use('/notification', notificationRoute);
 
