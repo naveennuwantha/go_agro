@@ -17,6 +17,7 @@ const EditReviews = () => {
   const {id} = useParams();
   const { enqueueSnackbar } = useSnackbar();
   const [hover, setHover] = useState(null);
+  const [selectedBoxes, setSelectedBoxes] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -55,6 +56,14 @@ const EditReviews = () => {
         enqueueSnackbar('Error', { variant: 'error' });
         console.log(error);
       });
+  };
+
+  const toggleBoxSelection = (index) => {
+    if (selectedBoxes.includes(index)) {
+      setSelectedBoxes(selectedBoxes.filter((boxIndex) => boxIndex !== index));
+    } else {
+      setSelectedBoxes([...selectedBoxes, index]);
+    }
   };
 
   return (
@@ -153,8 +162,8 @@ const EditReviews = () => {
           />
         </div>
 
-        <button className='p-2 bg-green-700 m-8 rounded-xl' onClick={handleSaveReview}>
-          Add Review
+        <button className='p-2 bg-green-700 m-8 rounded-xl' onClick={handleEditReview}>
+          Resubmit Review
         </button>
       </div>
     </div>
