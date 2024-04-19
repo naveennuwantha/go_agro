@@ -48,7 +48,7 @@ const EditReviews = () => {
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Review Edited successfully', { variant: 'success' });
-        navigate('/');
+        navigate('/reviews/show');
       })
       .catch((error) => {
         setLoading(false);
