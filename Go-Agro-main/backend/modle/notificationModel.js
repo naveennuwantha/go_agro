@@ -11,11 +11,11 @@ const notificationSchema = mongoose.Schema(
             required: true,
           },
           createdAt: {
-            type: String,
-            required: true,
-          },
+            type: Date,
+            default: Date.now
+        },
     }
 )
  
 
-export const notificationModel = mongoose.model("notification", notificationSchema);
+export const Notification = mongoose.model("notification", notificationSchema);

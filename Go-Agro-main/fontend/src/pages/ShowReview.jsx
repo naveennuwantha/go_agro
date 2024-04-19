@@ -12,7 +12,7 @@ const ShowReview = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/reviews/${id}`)
+      .get(`http://localhost:5000/reviews/${id}`)
       .then((response) => {
         setReview(response.data);
         setLoading(false);

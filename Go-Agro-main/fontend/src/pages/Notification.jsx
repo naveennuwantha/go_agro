@@ -1,50 +1,68 @@
-import React, { useState, useEffect } from 'react';
+// Notification.jsx
+
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import Spinner from '../components/Spinner';
+import { Link } from 'react-router-dom';
+import { BsInfoCircle } from 'react-icons/bs';
+import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import './';
 
-const NotificationPage = () => {
-    const [notifications, setNotifications] = useState([]);
 
-    useEffect(() => {
-        fetchNotifications();
-    }, []);
+const Notification = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-    const fetchNotifications = async () => {
-        try {
-            const response = await axios.get('/notifications');
-            if (Array.isArray(response.data)) {
-                setNotifications(response.data);
-            } else {
-                console.error('Invalid data format:', response.data);
-            }
-        } catch (error) {
-            console.error('Error fetching notifications:', error);
-        }
-    };
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get('http://localhost:5000/notifications')
+      .then((res) => {
+        setNotifications(res.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, []);
 
-    const deleteNotification = async (id) => {
-        try {
-            await axios.delete(`/notifications/${id}`);
-            fetchNotifications();
-        } catch (error) {
-            console.error('Error deleting notification:', error);
-        }
-    };
-
-    return (
-        <div>
-            <h1>Notifications</h1>
-            <ul>
-                {notifications.map(notification => (
-                    <li key={notification._id}>
-                        <p>{notification.message}</p>
-                        <p>{notification.createdAt}</p>
-                        <a href={notification.onClickPath} target="_blank" rel="noopener noreferrer">Go to Link</a>
-                        <button onClick={() => deleteNotification(notification._id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+  return (
+    <div className='notification-container'>
+      <h1 className='notification-header'>Notification</h1>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <table className='notification-table'>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Notification</th>
+              <th>Click Path</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {notifications.map((notification, index) => (
+              <tr key={notifications._id}>
+                <td>{index + 1}</td>
+                <td>{notification.message}</td>
+                <td>{notification.onClickPath}</td>
+                <td className='notification-actions'>
+                  <Link to={`/notifications/details/${notification._id}`} title="View Details">
+                    <BsInfoCircle />
+                  </Link>
+                  <Link to={`/notifications/delete/${notification._id}`} title="Delete notification">
+                    <MdOutlineDelete />
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
 };
 
-export default NotificationPage;
+export default Notification;

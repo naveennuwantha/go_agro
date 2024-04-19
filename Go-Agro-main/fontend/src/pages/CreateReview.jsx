@@ -26,7 +26,7 @@ const CreateReviews = () => {
     };
     setLoading(true);
     axios
-      .post('http://localhost:5555/reviews', data)
+      .post('http://localhost:5000/reviews', data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Review Created successfully', { variant: 'success' }); //UX

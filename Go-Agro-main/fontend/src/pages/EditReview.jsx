@@ -20,7 +20,7 @@ const EditReviews = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/reviews/${id}`)
+    axios.get(`http://localhost:5000/reviews/${id}`)
     .then((response) => {
       setUsername(response.data.username);
       setContent(response.data.content)

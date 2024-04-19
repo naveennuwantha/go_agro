@@ -14,7 +14,7 @@ const ShowAll = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get('http://localhost:5555/reviews')
+      .get('http://localhost:5000/reviews')
       .then((response) => {
         setReviews(response.data);
         setLoading(false);

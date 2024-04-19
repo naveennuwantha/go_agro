@@ -36,5 +36,5 @@ connection.once("open", () => {
 app.use('/complaints', complaintRoute);
 app.use('/farmers', farmerRoute);
 app.use('/reviews', reviewRoute);
-app.use('/notification', notificationRoute);
+app.use('/notifications', notificationRoute);
 
