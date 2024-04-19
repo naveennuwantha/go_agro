@@ -14,7 +14,7 @@ input[type=radio] {
   /* Additional styles for the input field */
   .input-field {
     border-width: 2px;
-    border-color: #111827;
+    border-color: #7173767f;
     padding: 0.5rem 1rem;
     width: 60%;
     border-radius: 0.5rem; /* Add rounded corners */
@@ -51,7 +51,28 @@ input[type=radio] {
     visibility: visible;
     opacity: 1;
   }
+  .container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin: 10px auto;
+  }
   
-  
+  .box {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+    width: 150px;
+    height: 60px;
+    border-radius: 9px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .box:hover {
+    background-color: #e0e0e0;
+  }
 
-  
+  .selected {
+    border: 2px solid #2AA244; 
+    color: #2AA244;
+    background-color: rgba(42, 162, 68, 0.1);
+  }

@@ -16,6 +16,7 @@ const CreateReviews = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar(); //UX
   const [hover, setHover] = useState(null);
+  const [selectedBoxes, setSelectedBoxes] = useState([]);
 
   const handleSaveReview = () => {
     const data = {
@@ -34,19 +35,26 @@ const CreateReviews = () => {
       })
       .catch((error) => {
         setLoading(false);
-        // alert('An error happened. Please Chack console');
         enqueueSnackbar('Error', { variant: 'error' });
         console.log(error);
       });
   };
 
-  return (
+  const toggleBoxSelection = (index) => {
+    if (selectedBoxes.includes(index)) {
+      setSelectedBoxes(selectedBoxes.filter((boxIndex) => boxIndex !== index));
+    } else {
+      setSelectedBoxes([...selectedBoxes, index]);
+    }
+  };
 
+  return (
     <div className='p-4'>
       <BackButton />
       <h1 className='text-3xl my-5 text-center text-green-700'>Add My Review</h1>
       {loading ? <Spinner /> : ''}
-      <div className='flex flex-col border-2 border-green-400 rounded-xl w-[600px] p-8 mx-auto'>
+
+      <div className='flex flex-col border-2 rounded-xl w-[900px] shadow-md p-8 mx-auto'>
         <div className='my-5 flex flex-col'>
           <label className='text-l mr-4 text-black-500'>User Name</label>
           <input
@@ -56,13 +64,51 @@ const CreateReviews = () => {
             className='input-field mt-2'
           />
         </div>
+
         <div className='my-5 flex flex-col'>
-          <label className='text-l mr-4 text-black-500'>Review</label>
+          <label className='text-l mr-4 text-black-500'>Select Descriptions</label>
+          <div className="container">
+            <div
+              className={`box ${selectedBoxes.includes(1) && 'selected'}`}
+              onClick={() => toggleBoxSelection(1)}
+            >
+              Not as shown
+            </div>
+            <div
+              className={`box ${selectedBoxes.includes(2) && 'selected'}`}
+              onClick={() => toggleBoxSelection(2)}
+            >
+              Timely Delivery
+            </div>
+            <div
+              className={`box ${selectedBoxes.includes(3) && 'selected'}`}
+              onClick={() => toggleBoxSelection(3)}
+            >
+              Smooth Process
+            </div>
+            <div
+              className={`box ${selectedBoxes.includes(4) && 'selected'}`}
+              onClick={() => toggleBoxSelection(4)}
+            >
+              Good Quality
+            </div>
+            <div
+              className={`box ${selectedBoxes.includes(5) && 'selected'}`}
+              onClick={() => toggleBoxSelection(5)}
+            >
+              Trustworthy Supplier
+            </div>
+          </div>
+        </div>
+
+        <div className='my-5 flex flex-col'>
+          <label className='text-l mr-4 text-black-500'>Add Written Review</label>
           <textarea
             value={content}
+            placeholder="How's the quality of the product? Is it worth its price?"
             onChange={(e) => setContent(e.target.value)}
-            className='input-field mt-2 h-60 resize-none' // Added 'resize-none' to prevent resizing
-            rows={4} // Adjust the number of rows as needed
+            className='input-field mt-2 h-60 resize-none'
+            rows={4}
           />
         </div>
 
@@ -104,7 +150,6 @@ const CreateReviews = () => {
         </button>
       </div>
     </div>
-
   );
 };
 

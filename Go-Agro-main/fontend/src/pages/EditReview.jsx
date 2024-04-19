@@ -43,7 +43,7 @@ const EditReviews = () => {
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5555/reviews/${id}`, data)
+      .put(`http://localhost:5000/reviews/${id}`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Review Edited successfully', { variant: 'success' });
@@ -62,64 +62,102 @@ const EditReviews = () => {
     <BackButton />
     <h1 className='text-3xl my-5 text-center text-green-700'>Edit My Review</h1>
     {loading ? <Spinner /> : ''}
-    <div className='flex flex-col border-2 border-green-400 rounded-xl w-[600px] p-8 mx-auto'>
-      <div className='my-5 flex flex-col'>
-        <label className='text-l mr-4 text-black-500'>User Name</label>
-        <input
-          type='text'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className='input-field mt-2'
-        />
-      </div>
-      <div className='my-5 flex flex-col'>
-        <label className='text-l mr-4 text-black-500'>Review</label>
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className='input-field mt-2 h-60 resize-none' // Added 'resize-none' to prevent resizing
-          rows={4} // Adjust the number of rows as needed
-        />
-      </div>
+    <div className='flex flex-col border-2 rounded-xl w-[900px] shadow-md p-8 mx-auto'>
+        <div className='my-5 flex flex-col'>
+          <label className='text-l mr-4 text-black-500'>User Name</label>
+          <input
+            type='text'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className='input-field mt-2'
+          />
+        </div>
 
-      <div className='my-5 flex items-center'>
-        <label className='text-l mr-4 text-black-500'>Rating</label>
-        {[...Array(5)].map((star, index) => {
-          const currentRating = index + 1;
-          return (
-            <label key={index} className='flex items-center'>
-              <input
-                type='radio'
-                name='rating'
-                value={currentRating}
-                onClick={() => setRating(currentRating)}
-              />
-              <FaStar
-                className='star'
-                size={35}
-                color={currentRating <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
-                onMouseEnter={() => setHover(currentRating)}
-                onMouseLeave={() => setHover(null)}
-              />
-            </label>
-          );
-        })}
-      </div>
-      <div className='my-5 flex flex-col'>
-        <label className='text-l mr-4 text-black-500'>Date</label>
-        <input
-          type='date'
-          value={publishDate}
-          onChange={(e) => setPublishDate(e.target.value)}
-          className='input-field mt-2'
-        />
-      </div>
+        <div className='my-5 flex flex-col'>
+          <label className='text-l mr-4 text-black-500'>Select Descriptions</label>
+          <div className="container">
+            <div
+              className={`box ${selectedBoxes.includes(1) && 'selected'}`}
+              onClick={() => toggleBoxSelection(1)}
+            >
+              Not as shown
+            </div>
+            <div
+              className={`box ${selectedBoxes.includes(2) && 'selected'}`}
+              onClick={() => toggleBoxSelection(2)}
+            >
+              Timely Delivery
+            </div>
+            <div
+              className={`box ${selectedBoxes.includes(3) && 'selected'}`}
+              onClick={() => toggleBoxSelection(3)}
+            >
+              Smooth Process
+            </div>
+            <div
+              className={`box ${selectedBoxes.includes(4) && 'selected'}`}
+              onClick={() => toggleBoxSelection(4)}
+            >
+              Good Quality
+            </div>
+            <div
+              className={`box ${selectedBoxes.includes(5) && 'selected'}`}
+              onClick={() => toggleBoxSelection(5)}
+            >
+              Trustworthy Supplier
+            </div>
+          </div>
+        </div>
 
-      <button className='p-2 bg-green-700 m-8 rounded-xl' onClick={handleEditReview}>
-        Submit
-      </button>
+        <div className='my-5 flex flex-col'>
+          <label className='text-l mr-4 text-black-500'>Add Written Review</label>
+          <textarea
+            value={content}
+            placeholder="How's the quality of the product? Is it worth its price?"
+            onChange={(e) => setContent(e.target.value)}
+            className='input-field mt-2 h-60 resize-none'
+            rows={4}
+          />
+        </div>
+
+        <div className='my-5 flex items-center'>
+          <label className='text-l mr-4 text-black-500'>Rating</label>
+          {[...Array(5)].map((star, index) => {
+            const currentRating = index + 1;
+            return (
+              <label key={index} className='flex items-center'>
+                <input
+                  type='radio'
+                  name='rating'
+                  value={currentRating}
+                  onClick={() => setRating(currentRating)}
+                />
+                <FaStar
+                  className='star'
+                  size={35}
+                  color={currentRating <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
+                  onMouseEnter={() => setHover(currentRating)}
+                  onMouseLeave={() => setHover(null)}
+                />
+              </label>
+            );
+          })}
+        </div>
+        <div className='my-5 flex flex-col'>
+          <label className='text-l mr-4 text-black-500'>Date</label>
+          <input
+            type='date'
+            value={publishDate}
+            onChange={(e) => setPublishDate(e.target.value)}
+            className='input-field mt-2'
+          />
+        </div>
+
+        <button className='p-2 bg-green-700 m-8 rounded-xl' onClick={handleSaveReview}>
+          Add Review
+        </button>
+      </div>
     </div>
-  </div>
   );
 }
 
