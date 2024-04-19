@@ -8,6 +8,7 @@ router.post('/',async(req,res)=>{
         if(
             
             !req.body.message ||
+            !req.body.fullMsg ||
             !req.body.onClickPath 
              
         ){
@@ -19,6 +20,7 @@ router.post('/',async(req,res)=>{
            
             message:req.body.message,
             onClickPath:req.body.onClickPath,
+            fullMsg:req.body.fullMsg,
             
         };
 
@@ -31,19 +33,32 @@ router.post('/',async(req,res)=>{
     }
 
 });
-
-// Route to get all notifications from db
-router.get('/', async (req, res) => {
-    try {
+//Route for Get All notifications from database
+router.get('/',async(request,response)=>{
+    try{
         const notifications = await Notification.find({});
 
-        return res.status(200).json(notifications);
-
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server Error' });
+        return response.status(200).json(notifications);
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({message:error.message});
     }
 });
+
+// Route to get all notifications from db
+router.get('/:id',async(req,res)=>{
+    try{
+        const {id} = req.params;
+
+        const notifications = await Notification.findById(id);
+
+        return res.status(200).json(notifications);
+    }catch(error){
+        console.log(error.message);
+        res.status(500).send({message:error.message});
+    }
+});
+
 
 // Route to delete a notification by ID
 router.delete('/:id', async (req, res) => {

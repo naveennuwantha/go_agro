@@ -64,9 +64,6 @@ const ShowReview = () => {
       </div>
     )}
   </div>
-  
-
-
   );
 };
 

@@ -6,6 +6,10 @@ const notificationSchema = mongoose.Schema(
             type: String,
             required: true,
           },
+        fullMsg:{
+          type:String,
+          required:true,
+        },
         onClickPath: {
             type: String,
             required: true,

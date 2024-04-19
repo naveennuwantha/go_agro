@@ -12,7 +12,7 @@ import ShowReview from './pages/ShowReview'
 import EditReview from './pages/EditReview'
 import DeleteReview from './pages/DeleteReview'
 import Notification from './pages/Notification'
-
+import FullNotification from './pages/FullNotification'
 
 
 
@@ -32,7 +32,7 @@ const App = () => {
         <Route path='/reviews/edit/:id' element={<EditReview />} />
         <Route path='/reviews/delete/:id' element={<DeleteReview />} />
         <Route  path='/notification' element={<Notification />} />
-
+        <Route  path='/notifications/details/:id' element={<FullNotification />} />
 
       </Routes>
     </div>
