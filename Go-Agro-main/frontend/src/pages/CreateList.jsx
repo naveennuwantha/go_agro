@@ -9,10 +9,13 @@ const CreateList = () => {
     const [paddyType, setPaddyType] = useState('');
     const [quantity, setQuantity] = useState('');
     const [pricePer1kg, setPricePer1Kg] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
+
+
+
 
     const handleSaveList = () => {
         setLoading(true);
@@ -22,7 +25,12 @@ const CreateList = () => {
         formData.append('pricePer1kg', pricePer1kg);
         formData.append('image', image);
 
-        axios.post('http://localhost:5000/lists', formData)
+
+        axios.post('http://localhost:5000/lists',
+            formData,
+
+        )
+
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('List created successfully', { variant: 'success' });
@@ -36,9 +44,10 @@ const CreateList = () => {
     };
 
     return (
-        <div className='p-4'>
+        <div className='p-4 center'>
+
             <BackButton />
-            <h1 className='text-3xl my-4'>Create List</h1>
+            <h1 className='text-3xl my-4 center'>Create List</h1>
             {loading ? <Spinner /> : ''}
             <div className='flex flex-col border-2 border-green-600 rounded-x1 w-[600px] p-4 mx-auto'>
                 <div className='my-4'>
@@ -78,6 +87,7 @@ const CreateList = () => {
                 </div>
                 <button className='p-2 bg-green-600 m-8' onClick={handleSaveList}>Save</button>
             </div>
+
         </div>
     );
 };

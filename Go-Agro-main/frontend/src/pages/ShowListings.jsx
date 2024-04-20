@@ -50,7 +50,8 @@ const ShowListings = () => {
                 ) : (
                     lists.map((list) => (
                         <div key={list._id} className='bg-white rounded-lg shadow-md'>
-                            <img src={`http://localhost:5000/${list.image}`} alt={list.paddyType} className='w-full h-32 object-cover rounded-t-lg' />
+                            <img src={`./image/${list.image}`} alt={list.paddyType} className='w-full h-32 object-cover rounded-t-lg' />
+                            {console.log(`./image/${list.image}`)}
                             <div className='p-4'>
                                 <h2 className='text-xl font-semibold mb-4 text-gray-800'>{list.paddyType}</h2>
                                 <p className='text-gray-600 mb-2'>{list.quantity} Kg</p>

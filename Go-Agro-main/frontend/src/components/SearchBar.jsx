@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import './SearchBar.css'
 
-
-export const SearchBar = () => {
+export const SearchBar = ({ onSearch }) => {
 
   const [isFocused, setIsFocused] = useState(false);
 
@@ -13,6 +12,11 @@ export const SearchBar = () => {
   const handleBlur = () => {
     setIsFocused(false);
   };
+
+  const handleChange = (event) => {
+    const searchTerm = event.target.value;
+    onSearch(searchTerm);
+  };
   return (
 
     <div className={`search-bar ${isFocused ? 'focused' : ''}`}>
@@ -21,6 +25,7 @@ export const SearchBar = () => {
         placeholder="Search..."
         onFocus={handleFocus}
         onBlur={handleBlur}
+        onChange={handleChange}
       />
       <button>Search</button>
     </div>

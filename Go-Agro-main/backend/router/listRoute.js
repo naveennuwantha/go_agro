@@ -9,111 +9,99 @@ const storage = multer.diskStorage({
         cb(null, 'uploads'); // Define the destination folder for uploaded files
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname); // Keep the original filename
+        cb(null, file.originalname);
     }
 });
 
-const upload = multer({ storage: storage }); 
+const upload = multer({ storage: storage }).single('image'); // Use single() instead of single()
 
 // Route for saving a new list
-router.post('/', upload.single('image'), async (req, res) => {
-    try {
-        const { paddyType, quantity, pricePer1kg } = req.body;
+router.post('/', (req, res) => {
+    upload(req, res, async (err) => { // Handle file upload before processing request
+        try {
+            if (err instanceof multer.MulterError) {
+                // Multer error occurred
+                return res.status(400).json({ error: err.message });
+            } else if (err) {
+                // Other errors occurred
+                return res.status(500).json({ error: err.message });
+            }
 
-        if (!req.file) {
-            return res.status(400).json({ error: 'No image provided' });
+            const { paddyType, quantity, pricePer1kg } = req.body;
+            const image = req.file ? req.file.path : null; // Check if file exists before accessing path
+
+            // Check if all required fields are provided
+            if (!paddyType || !quantity || !pricePer1kg || !image ) {
+                return res.status(400).json({ message: 'Send all required fields: paddyType, quantity, pricePer1kg, image' });
+            }
+
+            const newList = new List({
+                paddyType,
+                quantity,
+                pricePer1kg,
+                image
+            });
+
+            await newList.save();
+            return res.status(201).json({ message: "List created" });
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({ error: "Internal server error" });
         }
-
-        const newList = new List({
-            paddyType,
-            quantity,
-            pricePer1kg,
-            image : {
-                data: req.file.buffer,
-                contentType: req.file.mimetype
-            },
-
-        });
-
-        await newList.save();
-        return res.json({ message: "List created" });
-    } catch (error) {
-        return res.status(500).json({ error: "Internal server error" });
-    }
+    });
 });
 
 // Route for getting all list items from the database
-router.get('/',async(request,response)=>{
-    try{
+router.get('/', async (req, res) => {
+    try {
         const listings = await List.find({});
-
-        return response.status(200).json(listings);
-    }catch(error){
-        console.log(error.message);
-        response.status(500).send({message:error.message});
+        return res.status(200).json(listings);
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ error: error.message });
     }
 });
 
-// Route for getting a single list from database by ID
-router.get('/:id', async (request, response) => {
+// Route for getting a single list from the database by ID
+router.get('/:id', async (req, res) => {
     try {
-        const {id} = request.params;
-
-        const listings = await List.findById(id);
-
-        return response.status(200).json(listings);
-        
+        const { id } = req.params;
+        const listing = await List.findById(id);
+        return res.status(200).json(listing);
     } catch (error) {
-        console.log(error.message);
-        return response.status(500).send({ message: error.message });
+        console.error(error.message);
+        return res.status(500).json({ error: error.message });
     }
 });
 
 // Route for updating a list
-router.put('/:id',async(request,response)=>{
-    try{
-        if( 
-            
-            !request.body.paddyType ||
-            !request.body.quantity ||
-            !request.body.pricePer1kg||
-            !request.body.image
-            
-        ){
-            return response.status(400).send({
-                message: 'Send all required fields: paddyType,quantity,pricePer1kg,image',
-            });
+router.put('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await List.findByIdAndUpdate(id, req.body);
+        if (!result) {
+            return res.status(404).json({ message: 'List not found' });
         }
-        const {id} = request.params;
-
-        const result = await List.findByIdAndUpdate(id,request.body);
-
-        if(!result){
-            return response.status(404).json({message:'List not found'});
-        }
-
-        return response.status(200).send({message:'List updated successfully'});
-    }catch(error){
-        console.log(error.message);
-        response.status(500).send({message:error.message});
+        return res.status(200).json({ message: 'List updated successfully' });
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ error: error.message });
     }
 });
 
 // Route for deleting a list
-router.delete('/:id',async(request,response)=>{
-    try{
-        const {id} = request.params;
-
+router.delete('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
         const result = await List.findByIdAndDelete(id);
-
-        if(!result){
-            return response.status(404).json({message:'List not found'});
+        if (!result) {
+            return res.status(404).json({ message: 'List not found' });
         }
-
-        return response.status(200).send({message:'List deleted successfully'});
-    }catch(error){
-        console.log(error.message);
-        response.status(500).send({message:error.message});
+        return res.status(200).json({ message: 'List deleted successfully' });
+    } catch (error) {
+        console.error(error.message);
+        return res.status(500).json({ error: error.message });
     }
 });
+
 export default router;

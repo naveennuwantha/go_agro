@@ -13,11 +13,11 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
-app.use(bodyParser.json({limit: '10mb'}));
-app.use(bodyParser.urlencoded({limit:'10mb', extended: true}));
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.json());
 
-app.use(cors());
 
 const corsOption = {
     origin:true
@@ -27,7 +27,6 @@ app.listen(port, () => {
     console.log('server is running ' + port);
 });
 
-// Database connection
 const URL = process.env.MONGO_URL;
 
 mongoose.connect(URL); 

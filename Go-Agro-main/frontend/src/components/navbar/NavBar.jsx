@@ -1,37 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { SearchBar } from '../SearchBar';
-import './NavBar.css'; 
-
+import { Link } from 'react-router-dom'
+import { FaBell } from 'react-icons/fa'
+import { FaUserLarge } from "react-icons/fa6";
+import './NavBar.css'
 export const NavBar = () => {
   return (
-    <nav className="navbar">
-      <Link to="/" className="logo">
-        <h1>GO AGRO</h1>
-      </Link>
+    <nav className='nav1 pt-4 pb-4  '>
+      <Link to="/"><h1 className='text-white text-2xl ml-4 font-serif'>GO AGRO</h1></Link>
 
-      <div className="search-bar-container">
-        <SearchBar />
-      </div>
+      <ul className='list1 flex flex-row gap-10 text-lg  text-white  font-extralight font-serif'>
 
-      <div className="nav-links">
-        <ul style={{fontFamily:'serif'}}>
-          <Link to="/about">
-            <li>About</li>
-          </Link>
-          <Link to="/login">
-            <li>Login</li>
-          </Link>
-          <Link to="/signup">
-            <li>Sign Up</li>
-          </Link>
-          <Link to="/contact">
-            <li>Contact</li>
-          </Link>
-        </ul>
-      </div>
+        <Link to="/"><li>Home</li></Link>
+        <Link to="/"><li>Name</li></Link>
+
+        <Link to="/contact"><li className='mt-2'><FaBell /></li></Link>
+        <Link to="/contact"><li className='mt-2'><FaUserLarge /></li></Link>
+
+      </ul>
     </nav>
-  );
-};
-
-
+  )
+}
