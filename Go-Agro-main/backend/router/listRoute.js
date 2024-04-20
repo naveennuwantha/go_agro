@@ -13,9 +13,9 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage: storage }).single('image'); // Use single() instead of single()
+const upload = multer({ storage: storage }).single('image');
 
-// Route for saving a new list
+
 router.post('/', (req, res) => {
     upload(req, res, async (err) => { // Handle file upload before processing request
         try {
