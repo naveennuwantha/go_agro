@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
@@ -48,13 +48,28 @@ const CreateReviews = () => {
     }
   };
 
+  // Function to generate the current date in YYYY-MM-DD format
+  const getCurrentDate = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  // Set the initial value of publishDate to the current date
+  useEffect(() => {
+    setPublishDate(getCurrentDate());
+  }, []);
+
   return (
     <div className='p-4'>
       <BackButton />
       <h1 className='text-3xl my-5 text-center text-green-700'>Add My Review</h1>
       {loading ? <Spinner /> : ''}
 
-      <div className='flex flex-col border-2 rounded-xl w-[900px] shadow-md p-8 mx-auto'>
+      <div className='flex flex-col border-2 rounded-xl w-[950px] shadow-md p-8 mx-auto'>
+        
         <div className='my-5 flex flex-col'>
           <label className='text-l mr-4 text-black-500'>User Name</label>
           <input
@@ -67,7 +82,7 @@ const CreateReviews = () => {
 
         <div className='my-5 flex flex-col'>
           <label className='text-l mr-4 text-black-500'>Select Descriptions</label>
-          <div className="container">
+          <div className="description-boxes">
             <div
               className={`box ${selectedBoxes.includes(1) && 'selected'}`}
               onClick={() => toggleBoxSelection(1)}
@@ -124,13 +139,16 @@ const CreateReviews = () => {
                   value={currentRating}
                   onClick={() => setRating(currentRating)}
                 />
+
                 <FaStar
                   className='star'
                   size={35}
                   color={currentRating <= (hover || rating) ? '#ffc107' : '#e4e5e9'}
                   onMouseEnter={() => setHover(currentRating)}
                   onMouseLeave={() => setHover(null)}
+
                 />
+
               </label>
             );
           })}
@@ -145,11 +163,14 @@ const CreateReviews = () => {
           />
         </div>
 
-        <button className='p-2 bg-green-700 m-8 rounded-xl' onClick={handleSaveReview}>
-          Add Review
-        </button>
+        <div className='my-2 flex justify-center'> {/* Center the button horizontally */}
+          <button className='p-2 bg-green-800 m-8 rounded-xl w-[350px] ' onClick={handleSaveReview}>
+            Add Review
+          </button>
+        </div>
       </div>
     </div>
+
   );
 };
 

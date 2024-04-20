@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { FaStar } from 'react-icons/fa';
 import '../App.css';
@@ -14,7 +14,7 @@ const EditReviews = () => {
   const [rating, setRating] = useState(0);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
   const [hover, setHover] = useState(null);
   const [selectedBoxes, setSelectedBoxes] = useState([]);
@@ -22,11 +22,11 @@ const EditReviews = () => {
   useEffect(() => {
     setLoading(true);
     axios.get(`http://localhost:5000/reviews/${id}`)
-    .then((response) => {
-      setUsername(response.data.username);
-      setContent(response.data.content)
-      setPublishDate(response.data.publishDate)
-      setRating(response.data.rating)
+      .then((response) => {
+        setUsername(response.data.username);
+        setContent(response.data.content)
+        setPublishDate(response.data.publishDate)
+        setRating(response.data.rating)
         setLoading(false);
       }).catch((error) => {
         setLoading(false);
@@ -66,12 +66,25 @@ const EditReviews = () => {
     }
   };
 
+  // Function to generate the current date in YYYY-MM-DD format
+  const getCurrentDate = () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  // Set the initial value of publishDate to the current date
+  useEffect(() => {
+    setPublishDate(getCurrentDate());
+  }, []);
+
   return (
     <div className='p-4'>
-    <BackButton />
-    <h1 className='text-3xl my-5 text-center text-green-700'>Edit My Review</h1>
-    {loading ? <Spinner /> : ''}
-    <div className='flex flex-col border-2 rounded-xl w-[900px] shadow-md p-8 mx-auto'>
+      <BackButton />
+      <h1 className='text-3xl my-5 text-center text-green-700'>Edit My Review</h1>
+      {loading ? <Spinner /> : ''}
+      <div className='flex flex-col border-2 rounded-xl w-[950px] shadow-md p-8 mx-auto'>
         <div className='my-5 flex flex-col'>
           <label className='text-l mr-4 text-black-500'>User Name</label>
           <input
@@ -84,7 +97,7 @@ const EditReviews = () => {
 
         <div className='my-5 flex flex-col'>
           <label className='text-l mr-4 text-black-500'>Select Descriptions</label>
-          <div className="container">
+          <div className="description-boxes">
             <div
               className={`box ${selectedBoxes.includes(1) && 'selected'}`}
               onClick={() => toggleBoxSelection(1)}
@@ -161,10 +174,11 @@ const EditReviews = () => {
             className='input-field mt-2'
           />
         </div>
-
-        <button className='p-2 bg-green-700 m-8 rounded-xl' onClick={handleEditReview}>
-          Resubmit Review
-        </button>
+        <div className='my-2 flex justify-center'>
+          <button className='p-2 bg-green-800 m-8 rounded-xl w-[350px] ' onClick={handleEditReview}>
+            Resubmit Review
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,75 +1,73 @@
 input[type=radio] {
-    display: none;
+  display: none;
 }
 
-.star{
-    cursor: pointer;
+.star {
+  cursor: pointer;
+  margin-right: 0.5rem;
 }
 
-/* Update the basic color to green */
+
 .bg-green-400 {
-    background-color: #2AA244; /* Update to your preferred shade of green */
-  }
-  
-  /* Additional styles for the input field */
-  .input-field {
-    border-width: 2px;
-    border-color: #7173767f;
-    padding: 0.5rem 1rem;
-    width: 60%;
-    border-radius: 0.5rem; /* Add rounded corners */
-  }
-  
-  /* Additional styles for the star rating */
-  .star {
-    margin-right: 0.5rem; /* Add spacing between stars */
-  }
+  background-color: #2AA244;
+}
+
+.input-field {
+  border-width: 2px;
+  border-color: #7173767f;
+  padding: 0.5rem 1rem;
+  width: 60%;
+  border-radius: 0.5rem;
+}
 
 .tooltip {
-    position: relative;
-    display: inline-block;
-  }
-  
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: max-content;
-    background-color: rgba(60, 139, 81, 0.8);
-    color: #0e0d0d;
-    text-align: center;
-    border-radius: 4px;
-    padding: 8px;
-    position: absolute;
-    z-index: 1;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-  }
+  position: relative;
+  display: inline-block;
+}
 
-  .box {
-    background-color: #f2f2f2;
-    padding: 10px;
-    text-align: center;
-    width: 150px;
-    height: 60px;
-    border-radius: 9px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px; /* Add margin between each box */
-  }
-  
-  .box:hover {
-    background-color: #e0e0e0;
-  }
-  
-  .selected {
-    border: 2px solid #2AA244;
-    color: #2AA244;
-    background-color: rgba(42, 162, 68, 0.1);
-  }
-  
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: max-content;
+  background-color: rgba(60, 139, 81, 0.8);
+  color: #0e0d0d;
+  text-align: center;
+  border-radius: 4px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.box {
+  background-color: #f2f2f2;
+  padding: 15px;
+  text-align: center;
+  width: 150px;
+  height: 60px;
+  border-radius: 9px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  margin-top: 15px;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 18px;
+}
+
+.box:hover {
+  background-color: #e0e0e0;
+}
+
+.selected {
+  border: 2px solid #2AA244;
+  color: #2AA244;
+  background-color: rgba(42, 162, 68, 0.1);
+}
