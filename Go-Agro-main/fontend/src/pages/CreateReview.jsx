@@ -31,7 +31,7 @@ const CreateReviews = () => {
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Review Created successfully', { variant: 'success' }); //UX
-        navigate('/reviews/show');
+        navigate('/submit');
       })
       .catch((error) => {
         setLoading(false);
