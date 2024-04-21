@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
+import { BsArrowLeft } from 'react-icons/bs';
 import './Notification.css';
 
 const Notification = () => {
@@ -44,7 +45,16 @@ const Notification = () => {
   };
 
   return (
+
     <div className='notification-container'>
+      <div >
+        <Link
+          to="/"
+          className='bg-green-800 text-white px-4 py-1 rounded-lg w-fit absolute  left-4'
+        >
+          <BsArrowLeft className='text-2xl' />
+        </Link>
+      </div>
       <h1 className='notification-header'>My Notification</h1>
       {loading ? (
         <Spinner />

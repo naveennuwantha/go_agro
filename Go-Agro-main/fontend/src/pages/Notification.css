@@ -1,4 +1,4 @@
-/* Notification.css */
+
 
 .notification-container {
     padding: 20px;
@@ -9,6 +9,7 @@
     font-size: 24px;
     color: #28a745; /* Main color is green */
     margin-bottom: 20px;
+    margin-top: 60px;
   }
   
   .notification-list {

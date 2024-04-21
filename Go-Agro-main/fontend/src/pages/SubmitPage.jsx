@@ -1,22 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './submit.css';
 
-
-const SubmitPage = () => {
-    return (
-       
-        <div class="container">
-        <div class="card">
-          <h3 class="title">Thank You for your kind feedback!</h3>
-          <div class="btn-container">
-            <a href="/" class="btn btn-primary-h">Home</a>
-            <a href="/reviews/show" class="btn btn-primary-r">My Reviews</a>
-          </div>
+const SubmitPage = () => {  
+  
+  return (
+    <div className="container">
+      <div className="card">
+        <h3 className="title">Thank You for your kind feedback!</h3>
+        <div className="btn-container">
+          <a href="/" className="btn btn-primary-h">Home</a>
+          <Link to={'/reviews/show'} className="btn btn-primary-r">Check My Reviews</Link>
         </div>
       </div>
-      
-        
-        
-    );
+    </div>
+  );
 }
+
 export default SubmitPage;

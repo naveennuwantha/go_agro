@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import BackButton from '../components/BackButton';
+import { BsArrowLeft } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -64,12 +65,19 @@ const CreateReviews = () => {
 
   return (
     <div className='p-4'>
-      <BackButton />
+      <div className='flex'>
+        <Link
+          to="/notification"
+          className='bg-green-800 text-white px-4 py-1 rounded-lg w-fit absolute  left-4'
+        >
+          <BsArrowLeft className='text-2xl' />
+        </Link>
+      </div>
       <h1 className='text-3xl my-5 text-center text-green-700'>Add My Review</h1>
       {loading ? <Spinner /> : ''}
 
       <div className='flex flex-col border-2 rounded-xl w-[950px] shadow-md p-8 mx-auto'>
-        
+
         <div className='my-5 flex flex-col'>
           <label className='text-l mr-4 text-black-500'>User Name</label>
           <input
@@ -164,7 +172,7 @@ const CreateReviews = () => {
         </div>
 
         <div className='my-2 flex justify-center'> {/* Center the button horizontally */}
-          <button className='p-2 bg-green-800 m-8 rounded-xl w-[350px] ' onClick={handleSaveReview}>
+          <button className='p-2 bg-green-800 m-8 rounded-xl w-[350px] text-white' onClick={handleSaveReview}>
             Add Review
           </button>
         </div>

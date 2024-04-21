@@ -175,7 +175,7 @@ const EditReviews = () => {
           />
         </div>
         <div className='my-2 flex justify-center'>
-          <button className='p-2 bg-green-800 m-8 rounded-xl w-[350px] ' onClick={handleEditReview}>
+          <button className='p-2 bg-green-800 m-8 rounded-xl w-[350px] text-white' onClick={handleEditReview}>
             Resubmit Review
           </button>
         </div>

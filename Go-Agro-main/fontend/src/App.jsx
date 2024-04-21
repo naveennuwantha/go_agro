@@ -14,6 +14,7 @@ import DeleteReview from './pages/DeleteReview'
 import Notification from './pages/Notification'
 import FullNotification from './pages/FullNotification'
 import SubmitPage from './pages/SubmitPage'
+import deleteMsg from './pages/deleteMsg'
 
 
 
@@ -35,6 +36,7 @@ const App = () => {
         <Route  path='/notification' element={<Notification />} />
         <Route  path='/notifications/details/:id' element={<FullNotification />} />
         <Route  path='/submit' element={<SubmitPage />} />
+        <Route  path='/deleteMSg' element={<deleteMsg />} />
 
       </Routes>
     </div>

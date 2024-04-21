@@ -19,7 +19,7 @@ const DeleteReview = () => {
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Your Review Deleted successfully', { variant: 'success' });
-        navigate('/reviews/show');
+        navigate('/deleteMsg');
       })
       .catch((error) => {
         setLoading(false);
@@ -32,13 +32,13 @@ const DeleteReview = () => {
   return (
     <div className='p-4'>
       <div className='flex'>
-      <Link
-        to={'/reviews/show'}
-        className='bg-green-800 text-white px-4 py-1 rounded-lg w-fit'
-      >
-        <BsArrowLeft className='text-2xl' />
-      </Link>
-    </div>
+        <Link
+          to={'/reviews/show'}
+          className='bg-green-800 text-white px-4 py-1 rounded-lg w-fit'
+        >
+          <BsArrowLeft className='text-2xl' />
+        </Link>
+      </div>
       <h1 className='text-3xl my-8 text-green-700 text-center'>Delete Review</h1>
       {loading ? <Spinner /> : ''}
       <div className='flex flex-col items-center border-2 border-green-400 rounded-xl w-[600px] p-8 mx-auto'>

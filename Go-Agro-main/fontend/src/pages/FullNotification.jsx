@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import BackButton from '../components/BackButton';
+import { Link } from 'react-router-dom';
+import { BsArrowLeft } from 'react-icons/bs';
 import Spinner from '../components/Spinner';
 
 const FullNotification = () => {
@@ -24,28 +25,84 @@ const FullNotification = () => {
   }, []);
 
   return (
-    <div className='p-4'>
-    <BackButton />    
-    {loading ? (
-      <Spinner />
-    ) : (
-      <div className='flex items-center justify-center mt-20'>
-      <div className='flex flex-col border border-gray-300 rounded-xl shadow-md p-4 max-w-[800px] '>
-       
-        <div className='my-4'>
-          <span className='ml-4'>{notification.fullMsg}</span>
-        </div>
-      
-        <div className='my-4'>
-          <span className='text-lg text-gray-700 font-semibold font-montserrat'>Create Time:</span>
-          <span className='ml-4'>{new Date(notification.createdAt).toLocaleString()}</span>
-        </div>
-        
+    <div style={styles.container}>
+      <div className='flex'>
+        <Link
+          to="/notification"
+          className='bg-green-800 text-white px-4 py-1 rounded-lg w-fit absolute  left-4'
+        >
+          <BsArrowLeft className='text-2xl' />
+        </Link>
       </div>
-      </div>
-    )}
-  </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div style={styles.notificationContent}>
+          <div style={styles.notificationMessage}>{notification.message}</div>
+          <div style={styles.notificationFullMsg}>{notification.fullMsg}</div>
+          <button style={styles.notificationButton} onClick={() => { window.location.href = '/reviews/create'; }}>
+            {notification.onClickPath}
+          </button>
+          <div style={styles.notificationCreateTime}>
+            <span style={styles.timeLabel}>Create Time:</span>
+            <span style={styles.timeValue}>{new Date(notification.createdAt).toLocaleString()}</span>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
 export default FullNotification;
+
+// Inline styles
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+
+  },
+  notificationContent: {
+    border: '1px solid #ccc',
+    borderRadius: '10px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+    padding: '20px',
+    maxWidth: '800px',
+    marginTop: '70px',
+
+  },
+  notificationMessage: {
+    fontSize: '18px',
+    fontWeight: 'bold',
+    marginBottom: '10px',
+    marginTop: '10px',
+  },
+  notificationFullMsg: {
+    fontSize: '16px',
+    marginBottom: '20px',
+    fontWeight: 'normal', // Unbolded
+  },
+  notificationButton: {
+    backgroundColor: '#4caf50',
+    color: 'white',
+    border: 'none',
+    padding: '10px 20px',
+    marginTop: '50px',
+    borderRadius: '5px',
+    cursor: 'pointer',
+  },
+  notificationCreateTime: {
+    marginTop: '30px',
+  },
+  timeLabel: {
+    fontSize: '16px',
+    fontWeight: 'bold',
+  },
+  timeValue: {
+    marginLeft: '10px',
+    fontSize: '16px',
+  },
+};

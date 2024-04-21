@@ -25,14 +25,14 @@ input[type=radio] {
   display: inline-block;
 }
 
-.tooltip .tooltiptext {
+.tooltip .tooltiptext-view {
   visibility: hidden;
   width: max-content;
-  background-color: rgba(60, 139, 81, 0.8);
   color: #0e0d0d;
   text-align: center;
-  border-radius: 4px;
-  padding: 8px;
+  border-radius: 18px;
+  border: 2px solid rgba(60, 139, 81, 0.8);
+  padding: 7px;
   position: absolute;
   z-index: 1;
   top: 100%;
@@ -42,10 +42,56 @@ input[type=radio] {
   transition: opacity 0.3s;
 }
 
-.tooltip:hover .tooltiptext {
+.tooltip .tooltiptext-edit {
+  visibility: hidden;
+  width: max-content;
+  color: #0e0d0d;
+  text-align: center;
+  border-radius: 18px;
+  border: 2px solid rgba(255, 235, 59, 0.655);
+  padding: 7px;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext-delete {
+  visibility: hidden;
+  width: max-content;
+  color: #0e0d0d;
+  text-align: center;
+  border-radius: 18px;
+  border: 2px solid rgba(220, 53, 69, 0.8);
+  padding: 7px;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext-view {
   visibility: visible;
   opacity: 1;
 }
+
+.tooltip:hover .tooltiptext-edit {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip:hover .tooltiptext-delete {
+  visibility: visible;
+  opacity: 1;
+}
+
+
 
 .box {
   background-color: #f2f2f2;

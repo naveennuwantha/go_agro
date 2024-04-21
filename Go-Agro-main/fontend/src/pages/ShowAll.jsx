@@ -4,7 +4,7 @@ import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
-import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import {  MdOutlineDelete } from 'react-icons/md';
 import '../App.css';
 
 const ShowAll = () => {
@@ -26,64 +26,62 @@ const ShowAll = () => {
   }, []);
 
   return (
-    <div className='p-4'>
-      <div className='flex justify-center items-center '>
-        <h1 className='text-3xl my-8 text-green-700'>Review List</h1>
-        <Link to='/reviews/create'>
-          <MdOutlineAddBox className='text-green-500 text-2xl' />
-        </Link>
-      </div>
+    <div className='p-8'>
+      
       {loading ? (
         <Spinner />
       ) : (
         <table className='w-full border-separate border-spacing-2'>
-          <thead>
-            <tr>
-              <th className='border border-slate-600 rounded-md text-green-500'>ID</th>
-              <th className='border border-slate-600 rounded-md text-green-500'>UserName</th>
-              <th className='border border-slate-600 rounded-md text-green-500'>Review</th>
-              <th className='border border-slate-600 rounded-md text-green-500'>level of Rating(out of 5)</th>
-              <th className='border border-slate-600 rounded-md text-green-500'>Published Date</th>
-              <th className='border border-slate-600 rounded-md text-green-500'>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reviews.map((review, index) => (
-              <tr key={reviews._id} className='h-8'>
-                <td className='border border-slate-700 rounded-md text-center'>
-                  {index + 1}
-                </td>
-                <td className='border border-slate-700 rounded-md text-center'>
-                  {review.username}
-                </td>
-                <td className='border border-slate-700 rounded-md text-center'>
-                  {review.content}
-                </td>
-                <td className='border border-slate-700 rounded-md text-center'>
-                  {review.rating}
-                </td>
-                <td className='border border-slate-700 rounded-md text-center'>
-                  {review.publishDate}
-                </td>
-                <td className='border border-slate-700 rounded-md text-center'>
-                  <div className='flex justify-center gap-x-4'>
-                    <Link to={`/reviews/details/${review._id}`} className="tooltip" title="View Details">
-                      <BsInfoCircle className='text-xl text-green-800' />
-                      <span className="tooltiptext">View Details</span>
-                    </Link>
-                    <Link to={`/reviews/edit/${review._id}`} className="tooltip" title="Edit Review">
-                      <AiOutlineEdit className='text-xl text-yellow-600' />
-                      <span className="tooltiptext">Edit Review</span>
-                    </Link>
-                    <Link to={`/reviews/delete/${review._id}`} className="tooltip" title="Delete Review">
-                      <MdOutlineDelete className='text-xl text-red-600' />
-                      <span className="tooltiptext">Delete Review</span>
-                    </Link>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+<thead>
+  <tr>
+    <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '0.1%',fontSize: '18px' }}>ID</th>
+    <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '3%',  fontSize: '18px' }}>UserName</th>
+    <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '3%',  fontSize: '18px' }}>Review</th>
+    <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '2.5%',  fontSize: '18px' }}>Level of Rating(out of 5)</th>
+    <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '3%', fontSize: '18px' }}>Published Date</th>
+    <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '3%',  fontSize: '18px' }}>Actions</th>
+  </tr>
+</thead>
+<tbody className="bg-gray-100">
+  {reviews.map((review, index) => (
+    
+      <tr className='h-9'>
+        <td className='border rounded-md text-center shadow-lg' style={{ fontSize: '14px' }}>
+          {index + 1}
+        </td>
+        <td className='border rounded-md text-center shadow-lg' style={{ fontSize: '14px' }}>
+          {review.username}
+        </td>
+        <td className='border rounded-md text-center shadow-lg' style={{ fontSize: '14px' }}>
+          {review.content}
+        </td>
+        <td className='border rounded-md text-center shadow-lg' style={{ fontSize: '14px' }}>
+          {review.rating}
+        </td>
+        <td className='border rounded-md text-center shadow-lg' style={{ fontSize: '14px' }}>
+          {review.publishDate}
+        </td>
+        <td className='border rounded-md text-center shadow-lg' style={{ fontSize: '14px' }}>
+          <div className='flex justify-center gap-x-4'>
+            <Link to={`/reviews/details/${review._id}`} className="tooltip" title="View Details">
+              <BsInfoCircle className='text-xl text-green-800' />
+              <span className="tooltiptext-view">View Details</span>
+            </Link>
+            <Link to={`/reviews/edit/${review._id}`} className="tooltip" title="Edit Review">
+              <AiOutlineEdit className='text-xl text-yellow-600' />
+              <span className="tooltiptext-edit">Edit Review</span>
+            </Link>
+            <Link to={`/reviews/delete/${review._id}`} className="tooltip" title="Delete Review">
+              <MdOutlineDelete className='text-xl text-red-600' />
+              <span className="tooltiptext-delete">Delete Review</span>
+            </Link>
+          </div>
+        </td>
+      </tr>     
+  ))}
+</tbody>
+
+
         </table>
       )}
     </div>
@@ -91,4 +89,3 @@ const ShowAll = () => {
 };
 
 export default ShowAll;
-
