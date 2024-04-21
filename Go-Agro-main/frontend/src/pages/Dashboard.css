@@ -7,7 +7,6 @@
     }
     .list1 {
         flex-direction: column;
-        gap: 10px;
         text-align: center;
     }
     .t1 {
@@ -21,8 +20,10 @@
     }
     .w-56 {
         width: 100%;
-        margin-right: 0;
         margin-bottom: 10px;
+        border-radius: 20px;
+        padding: 10px;
+
     }
     .ml-9 {
         margin-left: 0 !important;
@@ -37,6 +38,14 @@
     }
     .list1 {
         justify-content: center;
+        gap: 10px;
+    }
+    .w-56 {
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 20px;
+        padding: 20px;
+
     }
     .t1 {
         font-size: 4rem;
@@ -44,9 +53,23 @@
     .t2 {
         font-size: 4.5rem;
     }
+    .ml-9 {
+        margin-left: 0 !important;
+    }
 }
 
 /* CSS for large screens */
 @media only screen and (min-width: 1025px) {
+    .w-56 {
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 20px;
+        padding: 20px;
+        gap: 10px;
+
+    }
+    .ml-9 {
+        margin-left: 0 !important;
+    }
     
 }

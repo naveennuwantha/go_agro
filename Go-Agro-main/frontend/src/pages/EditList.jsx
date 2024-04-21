@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import './EditList.css';
 
 const EditList = () => {
     const [paddyType, setPaddyType] = useState('');
@@ -52,11 +52,11 @@ const EditList = () => {
     };
 
     return (
-        <div className='p-4'>
-            <BackButton />
-            <h1 className='text-3xl my-4'>Edit Details</h1>
+        <div className='container'>
+
+            <h1 className='heading'>Edit Details</h1>
             {loading ? <Spinner /> : ''}
-            <div className='flex flex-col border-2 border-green-400 rounded-x1 w-[600px] p-4 mx-auto'>
+            <div className='form-container '>
                 <div className='my-4'>
                     <label className='text-xl mr-4 text-gray-500'>Paddy Type</label>
                     <input
@@ -82,7 +82,9 @@ const EditList = () => {
                         className='border-2 border-gray-500 px-4 py-2 w-full' />
                 </div>
 
-                <button className='p-2 bg-green-600 m-8' onClick={handleEditList}>Save</button>
+                <div className='button-container'>
+                    <button onClick={handleEditList}>Save</button>
+                </div>
             </div>
         </div>
     );

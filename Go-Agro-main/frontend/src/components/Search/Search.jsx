@@ -14,7 +14,7 @@ const Search = () => {
     return (
         <div className={classes.container}>
             <input type='text'
-                placeholder='Search'
+                placeholder='Search Products'
                 onChange={e => setTerm(e.target.value)}
                 onKeyUp={e => e.key === 'Enter' && search}
                 defaultValue={searchTerm} />

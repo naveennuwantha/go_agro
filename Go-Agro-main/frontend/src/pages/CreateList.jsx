@@ -14,9 +14,6 @@ const CreateList = () => {
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
-
-
-
     const handleSaveList = () => {
         setLoading(true);
         const formData = new FormData();
@@ -26,15 +23,11 @@ const CreateList = () => {
         formData.append('image', image);
 
 
-        axios.post('http://localhost:5000/lists',
-            formData,
-
-        )
-
+        axios.post('http://localhost:5000/lists', formData)
             .then(() => {
                 setLoading(false);
                 enqueueSnackbar('List created successfully', { variant: 'success' });
-                navigate('/');
+                navigate('/lists/show');
             })
             .catch((error) => {
                 setLoading(false);
@@ -80,11 +73,13 @@ const CreateList = () => {
                 <div className='my-4'>
                     <label className='text-xl mr-4 text-gray-500'>Upload Image Here</label>
                     <input
+
                         type='file'
                         onChange={(e) => setImage(e.target.files[0])}
                         className='border-2 border-gray-500 px-4 py-2 w-full'
                     />
                 </div>
+
                 <button className='p-2 bg-green-600 m-8' onClick={handleSaveList}>Save</button>
             </div>
 

@@ -43,6 +43,9 @@ const ShowListings = () => {
 
     return (
         <>
+            <Link to='/lists/create' className='fixed top-30 right-4'>
+                <MdOutlineAddBox className='text-4xl text-green-500' />
+            </Link>
             <Search />
             <div className='p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
                 {loading ? (
@@ -50,8 +53,8 @@ const ShowListings = () => {
                 ) : (
                     lists.map((list) => (
                         <div key={list._id} className='bg-white rounded-lg shadow-md'>
-                            <img src={`./image/${list.image}`} alt={list.paddyType} className='w-full h-32 object-cover rounded-t-lg' />
-                            {console.log(`./image/${list.image}`)}
+                            <img src={`http://localhost:5000/${list.image}`} alt={list.paddyType} className='w-full h-32 object-cover rounded-t-lg' />
+                            {console.log(`http://localhost:5000/${list.image}`)}
                             <div className='p-4'>
                                 <h2 className='text-xl font-semibold mb-4 text-gray-800'>{list.paddyType}</h2>
                                 <p className='text-gray-600 mb-2'>{list.quantity} Kg</p>
@@ -74,12 +77,8 @@ const ShowListings = () => {
                     ))
                 )}
             </div>
-            <Link to='/lists/create' className='fixed bottom-4 right-4'>
-                <MdOutlineAddBox className='text-4xl text-green-500' />
-            </Link>
         </>
     );
 };
 
 export default ShowListings;
-

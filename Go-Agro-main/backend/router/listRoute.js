@@ -6,7 +6,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads'); // Define the destination folder for uploaded files
+        cb(null, ''); 
     },
     filename: (req, file, cb) => {
         cb(null, file.originalname);
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }).single('image');
 
-
+// Route for saving all list items from the database
 router.post('/', (req, res) => {
     upload(req, res, async (err) => { // Handle file upload before processing request
         try {
