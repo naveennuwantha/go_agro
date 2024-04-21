@@ -7,7 +7,7 @@ import { Track } from "./modle/trackModel.js";
 dotenv.config(); // Load environment variables from .env file
 
 const app = express();
-const PORT = process.env.PORT || 5555;
+const PORT = process.env.PORT || 5000;
 const mongoDBURL = process.env.MONGO_URL || "mongodb://localhost:27017/goagro";
 
 // Middleware for parsing request body
