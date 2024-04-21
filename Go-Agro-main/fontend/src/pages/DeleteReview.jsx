@@ -34,8 +34,7 @@ const DeleteReview = () => {
       <div className='flex'>
         <Link
           to={'/reviews/show'}
-          className='bg-green-800 text-white px-4 py-1 rounded-lg w-fit'
-        >
+          className='bg-green-800 text-white px-4 py-1 rounded-lg w-fit'>
           <BsArrowLeft className='text-2xl' />
         </Link>
       </div>
@@ -46,8 +45,7 @@ const DeleteReview = () => {
 
         <button
           className='p-4 bg-red-600 text-white m-8 w-80 rounded-xl'
-          onClick={handleDeleteReview}
-        >
+          onClick={handleDeleteReview} >
           Yes, Delete it
         </button>
       </div>
