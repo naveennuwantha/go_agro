@@ -1,32 +1,107 @@
-import mongoose from "mongoose";
+import express from "express";
+import { Track } from "../models/TrackModels.js";
+const router = express.Router();
 
-// Custom validator function to check if the value is a string
-const validateString = (value) => {
-    return typeof value === 'string';
-};
 
-const TrackModel = mongoose.Schema(
-    {
-        OrderId:{
-            type:String,
-            required:[true, 'Order ID is required'],
-            unique:true,
-            maxlength:[4,"OrderId must not have more than 4 characters"],
-            validate: [validateString, 'Order ID must be a string'] // Add custom validator for string type
-        },
-        address:{
-            type:String,
-            required:[true, 'Address is required'],
-        },
-        status:{
-            type:String,
-            enum: ['Order Confirmed', 'Ready to Deliver', 'On the Way to Delivered', 'Delivered'],
-            required:[true, 'Status is required'],
+
+
+// Route for saving a new Track
+router.post('/', async (request, response) =>{
+    try{
+        if(
+            !request.body.OrderId ||
+            !request.body.address
+            )  {
+            return response.status(400).send({
+                message:'Send required field:OrderId',
+            });
         }
-    },
-    {
-        timestamps:true,
+        const newTrack = {
+            OrderId: request.body.OrderId,
+            address: request.body.address,
+        };
+        const track = await Track.create(newTrack);
+        return response.status(201).send(track);
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({message:error.message});
     }
-);
+});
 
-export const Track = mongoose.model('tracks',TrackModel);
+//Route for Get All Track from database
+router.get('/',async (request, response) =>{
+    try{
+        const tracks = await Track.find({}); 
+        return response.status(200).json({
+            count:tracks.length,
+            data:tracks
+        })
+
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({ message: error.message});
+    }
+});
+
+//Route for Get one Track from database by id
+router.get('/:id',async (request, response) =>{
+    try{
+
+        const { id } = request.params;
+
+        const tracks = await Track.findById(id); 
+
+        return response.status(200).json(tracks)
+
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({ message: error.message});
+    }
+});
+//Route for Update a Trrack
+router.put('/:id',async (request, response) =>{
+    try{
+        if(
+        !request.body.OrderId ||
+        !request.body.address
+        ){
+            return response.status(400).send({
+                message: 'Send all required fields:OrderId, address',
+            });
+        }
+
+        const{ id } = request.params;
+
+        const result = await Track.findByIdAndUpdate(id, request.body);
+
+        if(!result){
+            return response.status(404).json({ message: 'Track not found'});
+        }
+        return response.status(200).send({ message: 'Track updated successfully'});
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({message:error.message});
+
+    }
+});
+
+
+router.delete('/:id',async(request,response) =>{
+    try{
+        const { id } = request.params; 
+
+        const result = await Track.findByIdAndDelete(id);
+
+        if(!result){
+            return response.status(404).json({message:'Track not found'});
+        }
+
+        return response.status(200).send({message:'Track deleted successfully'});
+
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({message: error.message});
+    }
+});
+export default router;
+

@@ -1,41 +1,39 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
-import complaintRoute from './router/ComplaintRoute.js'
-import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { Track } from "./modle/trackModel.js";
+
+dotenv.config(); // Load environment variables from .env file
+
+const app = express();
+const PORT = process.env.PORT || 5555;
+const mongoDBURL = process.env.MONGO_URL || "mongodb://localhost:27017/goagro";
+
+// Middleware for parsing request body
+app.use(express.json());
+
+// Middleware for handling CORS policy
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:5173', // Allow requests from specified origin or default to localhost:5173
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Include OPTIONS method
+    allowedHeaders: ['Content-Type'],
+}));
+
+app.get('/', (request, response) =>{
+    console.log(request);
+    return response.status(234).send('Welcome');
+});
 
 
-dotenv.config()
-
-const app = express()
-const port = process.env.PORT || 8000
-app.use(bodyParser.json());
-
-
-app.use(cors())
-
-const corsOption = {
-    origin:true
-}
-
-app.listen(port,()=>{
-    console.log('server is running '+port)
-})
-
-//database connection
-const URL = process.env.MONGO_URL;
-
-
-mongoose.connect(URL, {
- 
-}); 
-
-const connection = mongoose.connection;
-connection.once("open", () =>{
-    console.log("MongoDb connection sucessfull");
-})
-
-
-app.use('/complaints', complaintRoute )
-app.use('/farmers', )
+mongoose
+    .connect(mongoDBURL)
+    .then(() => {
+        console.log('App is connected to database');
+        app.listen(PORT, () =>{
+            console.log(`App is listening to port: ${PORT}`);
+        });
+    })
+    .catch((error) => {
+        console.log(error);
+    });
