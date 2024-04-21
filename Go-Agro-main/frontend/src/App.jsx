@@ -1,29 +1,27 @@
-import React from 'react'
-import { Route, Routes } from 'react-router-dom'
-import { NavBar } from './components/navbar/NavBar'
-import { Home } from './pages/Home'
-import { About } from './pages/About'
-import { SignUp } from './pages/SignUp'
-import { Login } from './pages/Login'
 
-
-
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import CreateTrack from "./pages/CreateTrack";
+import Stepper from "./pages/Stepper";
+import ShowTrack from "./pages/ShowTrack";
+import DeleteTrack from "./pages/DeleteTrack";
+import EditTrack from "./pages/EditTrack";
+import { StatusProvider } from './pages/StepperContext';
 
 const App = () => {
   return (
-    <div>
-      <NavBar/>
+    <StatusProvider>
       <Routes>
-        <Route index path='/' element={<Home/>} />
-        <Route index path='/about' element={<About/>} />
-        <Route index path='/signup' element={<SignUp/>} />
-        <Route index path='/login' element={<Login/>} />
-     
-    
-
+        <Route path="/" element={<Home />} />
+        <Route path="/tracks/details/:id" element={<ShowTrack />} />
+        <Route path="/tracks/edit/:id" element={<EditTrack />} />
+        <Route path="/tracks/stepper/:id" element={<Stepper />} />
+        <Route path="/tracks/create" element={<CreateTrack />} />
+        <Route path="/tracks/delete/:id" element={<DeleteTrack />} />
       </Routes>
-    </div>
-  )
-}
+    </StatusProvider>
+  );
+};
 
-export default App
+export default App;
