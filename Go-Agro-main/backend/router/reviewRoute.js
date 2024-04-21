@@ -1,9 +1,26 @@
 import express from 'express';
 import {Review} from '../modle/reviewModel.js';
 const router = express.Router();
+import mongoose from 'mongoose';
 
-//Route for save a new review
-router.post('/',async(request,response)=>{
+const validateFields = (req,res,next) =>{
+    const requiredFields = [
+        "username",
+        "content",
+        "rating",
+        "publishDate",
+    ];
+    for(const field of requiredFields){
+        if (!req.body[field]) {
+            return res
+              .status(400)
+              .send({ message: `Field '${field}' cannot be empty` });
+    }
+}
+} 
+
+//Route for create a new review
+router.post('/',validateFields,async(request,response)=>{
     try{
         if(
             
@@ -33,6 +50,38 @@ router.post('/',async(request,response)=>{
     }
 
 });
+
+  // Route for retrieving a specific Vehicle by ID
+ router.get('/:identifier', async (request, response) => {
+    try {
+        // Extracting the identifier from the request parameters
+        const { identifier } = request.params;
+  
+        // Checking if the provided identifier is a valid MongoDB ObjectId
+        if (mongoose.Types.ObjectId.isValid(identifier)) {
+            // Fetching a vehicle from the database based on the ID
+            const ReviewByID = await Review.findById(identifier);
+            if (ReviewByID) {
+                // Sending the fetched vehicle as a JSON response if found by ID
+                return response.status(200).json(ReviewByID);
+            }
+        }
+  
+        // If the provided identifier is not a valid ObjectId, try searching by register number
+        const ReviewByUSERNAME = await Review.find({ username: identifier });
+        if (ReviewByUSERNAME) {
+            // Sending the fetched vehicle as a JSON response if found by register number
+            return response.status(200).json(ReviewByUSERNAME);
+        }
+  
+        // If no vehicle found by either ID or register number, send a 404 Not Found response
+        return response.status(404).json({ message: 'review not found' });
+    } catch (error) {
+        // Handling errors and sending an error response with detailed error message
+        console.error(error);
+        response.status(500).send({ message: 'Error fetching review: ' + error.message });
+    }
+  }); 
 
 //Route for Get All reviews from database
 router.get('/',async(request,response)=>{

@@ -18,13 +18,23 @@ const CreateReviews = () => {
   const { enqueueSnackbar } = useSnackbar(); //UX
   const [hover, setHover] = useState(null);
   const [selectedBoxes, setSelectedBoxes] = useState([]);
+  /*const { username } = useParams();*/
+
 
   const handleSaveReview = () => {
+
+    // Check if any of the required fields are empty
+    if (!username || !content || !rating || !publishDate) {
+      // Show a popup message indicating the required fields
+      enqueueSnackbar('Please fill in all required fields', { variant: 'error' });
+      return; // Exit the function early if any required field is empty
+    }
     const data = {
       username,
       content,
       publishDate,
       rating,
+
     };
     setLoading(true);
     axios
@@ -40,6 +50,31 @@ const CreateReviews = () => {
         console.log(error);
       });
   };
+
+  // Fetch employees data on component mount
+  useEffect(() => {
+    const fetchUsersData = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get("http://localhost:5000/users");
+        const usersData = response.data.data;
+        if (Array.isArray(usersData)) {
+          setUsers(usersData);
+        } else {
+          console.error("User data is not an array:", usersData);
+        }
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        alert("Failed to fetch users. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsersData();
+  }, [axios]); // Add axios dependency here 
+
+
 
   const toggleBoxSelection = (index) => {
     if (selectedBoxes.includes(index)) {
