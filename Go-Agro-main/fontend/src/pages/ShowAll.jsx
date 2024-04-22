@@ -36,6 +36,8 @@ const ShowAll = () => {
             <tr>
               <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '0.1%', fontSize: '18px' }}>ID</th>
               <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '3%', fontSize: '18px' }}>UserName</th>
+              <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '3%', fontSize: '18px' }}>Name of order</th>
+              <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '3%', fontSize: '18px' }}>Order Number</th>
               <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '3%', fontSize: '18px' }}>Review</th>
               <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '2.5%', fontSize: '18px' }}>Level of Rating(out of 5)</th>
               <th className='border border-slate-600 rounded-md text-green-500 bg-green-100 p-2' style={{ width: '3%', fontSize: '18px' }}>Published Date</th>
@@ -50,7 +52,13 @@ const ShowAll = () => {
                   {index + 1}
                 </td>
                 <td className='border rounded-md text-center shadow-lg' style={{ fontSize: '14px' }}>
-                  {review.username}
+                  {review.buyername}
+                </td>
+                <td className='border rounded-md text-center shadow-lg' style={{ fontSize: '14px' }}>
+                  {review.type}
+                </td>
+                <td className='border rounded-md text-center shadow-lg' style={{ fontSize: '14px' }}>
+                  {review.ordernumber}
                 </td>
                 <td className='border rounded-md text-center shadow-lg' style={{ fontSize: '14px' }}>
                   {review.content}

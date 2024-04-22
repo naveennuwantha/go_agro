@@ -8,10 +8,12 @@ import { FaStar } from 'react-icons/fa';
 import '../App.css';
 
 const EditReviews = () => {
-  const [username, setUsername] = useState('');
+  const [buyername, setBuyername] = useState('');
   const [content, setContent] = useState('');
   const [publishDate, setPublishDate] = useState('');
   const [rating, setRating] = useState(0);
+  const [ordernumber, setOrdernumber] = useState('');
+  const [type, setType] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -23,10 +25,12 @@ const EditReviews = () => {
     setLoading(true);
     axios.get(`http://localhost:5000/reviews/${id}`)
       .then((response) => {
-        setUsername(response.data.username);
+        setBuyername(response.data.username);
         setContent(response.data.content)
         setPublishDate(response.data.publishDate)
         setRating(response.data.rating)
+        setOrdernumber(response.data.ordernumber)
+        setType(response.data.type)
         setLoading(false);
       }).catch((error) => {
         setLoading(false);
@@ -37,10 +41,12 @@ const EditReviews = () => {
 
   const handleEditReview = () => {
     const data = {
-      username,
+      buyername,
       content,
       publishDate,
       rating,
+      ordernumber,
+      type,
     };
     setLoading(true);
     axios
@@ -85,12 +91,33 @@ const EditReviews = () => {
       <h1 className='text-3xl my-5 text-center text-green-700'>Edit My Review</h1>
       {loading ? <Spinner /> : ''}
       <div className='flex flex-col border-2 rounded-xl w-[950px] shadow-md p-8 mx-auto'>
+        
+      <div className='my-5 flex flex-col'>
+          <label className='text-l mr-4 text-black-500'>Order Name</label>
+          <input
+            type='text'
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            className='input-field mt-2'
+          />
+        </div>
+
+        <div className='my-5 flex flex-col'>
+          <label className='text-l mr-4 text-black-500'>Order Number</label>
+          <input
+            type='text'
+            value={ordernumber}
+            onChange={(e) => setOrdernumber(e.target.value)}
+            className='input-field mt-2'
+          />
+        </div>
+        
         <div className='my-5 flex flex-col'>
           <label className='text-l mr-4 text-black-500'>User Name</label>
           <input
             type='text'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={buyername}
+            onChange={(e) => setBuyername(e.target.value)}
             className='input-field mt-2'
           />
         </div>

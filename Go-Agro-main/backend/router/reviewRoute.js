@@ -5,10 +5,12 @@ import mongoose from 'mongoose';
 
 const validateFields = (req,res,next) =>{
     const requiredFields = [
-        "username",
         "content",
         "rating",
         "publishDate",
+        "buyername",
+        "ordernumber",
+        "type",
     ];
     for(const field of requiredFields){
         if (!req.body[field]) {
@@ -24,21 +26,25 @@ router.post('/',validateFields,async(request,response)=>{
     try{
         if(
             
-            !request.body.username ||
             !request.body.content ||
             !request.body.rating ||
-            !request.body.publishDate 
+            !request.body.publishDate ||
+            !request.body.buyername ||
+            !request.body.ordernumber ||
+            !request.body.type
         ){
             return response.status(400).send({
-                message: 'Send all required fields: username,content,date',
+                message: 'Send all required fields',
             });
         }
         const newReview={
            
-            username:request.body.username,
             content:request.body.content,
             rating:request.body.rating,
             publishDate:request.body.publishDate,
+            buyername:request.body.buyername,
+            ordernumber:request.body.ordernumber,
+            type:request.body.type,
         };
 
         const review = await Review.create(newReview);
@@ -68,10 +74,10 @@ router.post('/',validateFields,async(request,response)=>{
         }
   
         // If the provided identifier is not a valid ObjectId, try searching by register number
-        const ReviewByUSERNAME = await Review.find({ username: identifier });
-        if (ReviewByUSERNAME) {
+        const ReviewByORDERNUMBER = await Review.find({ ordernumber: identifier });
+        if (ReviewByORDERNUMBER) {
             // Sending the fetched vehicle as a JSON response if found by register number
-            return response.status(200).json(ReviewByUSERNAME);
+            return response.status(200).json(ReviewByORDERNUMBER);
         }
   
         // If no vehicle found by either ID or register number, send a 404 Not Found response
@@ -113,14 +119,15 @@ router.get('/:id',async(request,response)=>{
 router.put('/:id',async(request,response)=>{
     try{
         if(
-            
-            !request.body.username ||
             !request.body.content ||
             !request.body.rating ||
-            !request.body.publishDate 
+            !request.body.publishDate ||
+            !request.body.buyername ||
+            !request.body.ordernumber ||
+            !request.body.type
         ){
             return response.status(400).send({
-                message: 'Send all required fields: username,content,publishDate',
+                message: 'Send all required fields',
             });
         }
         const {id} = request.params;

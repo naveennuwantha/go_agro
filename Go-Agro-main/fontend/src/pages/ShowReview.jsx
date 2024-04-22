@@ -41,7 +41,15 @@ const ShowReview = () => {
             </div>
             <div className='my-4'>
               <span className='text-lg text-gray-700 font-semibold font-montserrat'>Username:</span>
-              <span className='ml-4'>{review.username}</span>
+              <span className='ml-4'>{review.buyername}</span>
+            </div>
+            <div className='my-4'>
+              <span className='text-lg text-gray-700 font-semibold font-montserrat'>Order Name:</span>
+              <span className='ml-4'>{review.type}</span>
+            </div>
+            <div className='my-4'>
+              <span className='text-lg text-gray-700 font-semibold font-montserrat'>Order Number:</span>
+              <span className='ml-4'>{review.ordernumber}</span>
             </div>
             <div className='my-4'>
               <span className='text-lg text-gray-700 font-semibold font-montserrat'>Review Content:</span>

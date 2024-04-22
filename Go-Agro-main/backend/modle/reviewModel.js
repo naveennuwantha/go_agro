@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const reviewSchema = mongoose.Schema(
     {
         
-        username:{
+        buyername:{
             type:String,
             required : true,
         },
@@ -20,6 +20,14 @@ const reviewSchema = mongoose.Schema(
             min: 1, // Minimum rating value
             max: 5, // Maximum rating value
             required: true
+        },
+        ordernumber: {
+            type:String,
+            required : true,
+        },
+        type:{
+            type:String,
+            required : true,
         },
     },
     {

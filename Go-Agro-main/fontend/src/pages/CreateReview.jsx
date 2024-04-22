@@ -9,16 +9,18 @@ import { FaStar } from 'react-icons/fa';
 import '../App.css';
 
 const CreateReviews = () => {
-  const [username, setUsername] = useState('');
+  const [buyername, setBuyername] = useState('');
   const [content, setContent] = useState('');
   const [publishDate, setPublishDate] = useState('');
   const [rating, setRating] = useState(0);
+  const [ordernumber, setOrdernumber] = useState('');
+  const [type, setType] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar(); //UX
   const [hover, setHover] = useState(null);
   const [selectedBoxes, setSelectedBoxes] = useState([]);
-  /*const { username } = useParams();*/
+  /*const { buyername } = useParams();*/
 
 
   const handleSaveReview = () => {
@@ -30,10 +32,12 @@ const CreateReviews = () => {
       return; // Exit the function early if any required field is empty
     }
     const data = {
-      username,
       content,
       publishDate,
       rating,
+      buyername,
+      ordernumber,
+      type,
 
     };
     setLoading(true);
@@ -51,27 +55,27 @@ const CreateReviews = () => {
       });
   };
 
-  // Fetch employees data on component mount
+  // Fetch orders data on component mount
   useEffect(() => {
-    const fetchUsersData = async () => {
+    const fetchOrdersData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("http://localhost:5000/users");
-        const usersData = response.data.data;
-        if (Array.isArray(usersData)) {
-          setUsers(usersData);
+        const response = await axios.get("http://localhost:5000/orders");
+        const ordersData = response.data.data;
+        if (Array.isArray(ordersData)) {
+          setOrders(ordersData);
         } else {
-          console.error("User data is not an array:", usersData);
+          console.error("Order data is not an array:", ordersData);
         }
       } catch (error) {
-        console.error("Error fetching users:", error);
-        alert("Failed to fetch users. Please try again later.");
+        console.error("Error fetching orders:", error);
+        alert("Failed to fetch orders. Please try again later.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchUsersData();
+    fetchOrdersData();
   }, [axios]); // Add axios dependency here 
 
 
@@ -113,12 +117,32 @@ const CreateReviews = () => {
 
       <div className='flex flex-col border-2 rounded-xl w-[950px] shadow-md p-8 mx-auto'>
 
+      <div className='my-5 flex flex-col'>
+          <label className='text-l mr-4 text-black-500'>Order Name</label>
+          <input
+            type='text'
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            className='input-field mt-2'
+          />
+        </div>
+
+        <div className='my-5 flex flex-col'>
+          <label className='text-l mr-4 text-black-500'>Order Number</label>
+          <input
+            type='text'
+            value={ordernumber}
+            onChange={(e) => setOrdernumber(e.target.value)}
+            className='input-field mt-2'
+          />
+        </div>
+
         <div className='my-5 flex flex-col'>
           <label className='text-l mr-4 text-black-500'>User Name</label>
           <input
             type='text'
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={buyername}
+            onChange={(e) => setBuyername(e.target.value)}
             className='input-field mt-2'
           />
         </div>
