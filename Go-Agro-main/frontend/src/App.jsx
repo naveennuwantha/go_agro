@@ -28,7 +28,6 @@ const App = () => {
         <Route index path='/lists/details/:id' element={<ShowList />} />
         <Route index path='/lists/edit/:id' element={<EditList />} />
         <Route index path='/lists/delete/:id' element={<DeleteList />} />
-        <Route index path='/search/:searchTerm' element={<ShowListings />} />
         <Route index path='/dashboard' element={<Dashboard />} />
 
 
