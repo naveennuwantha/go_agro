@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 const CreateTrack = () => {
     const [OrderId, setOrderId] = useState('');
     const [address, setAddress] = useState('');
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('Order Confirmed'); // Set initial status here
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -23,7 +23,6 @@ const CreateTrack = () => {
             .then(() => {
                 setLoading(false);
                 navigate('/');
-               
             })
             .catch((error) => {
                 setLoading(false);
@@ -63,6 +62,7 @@ const CreateTrack = () => {
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
                         className="border-2 border-gray-500 px-4 w-full"
+                        disabled // Prevent user from editing the status field
                     />
                 </div>
                 <button className="p-2 bg-sky-300 m-8" onClick={handleSaveTrack}>
