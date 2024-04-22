@@ -1,74 +1,95 @@
-import React, { useContext } from 'react';
+import * as React from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { StepperContext } from './StepperContext';
 
 const steps = [
   {
-    label: 'Order Confirmed',
-    description: `Your order has been successfully placed and confirmed. We have received your request and are preparing to fulfill it.`,
+    label: 'Select campaign settings',
+    description: `For each ad campaign that you create, you can control how much
+              you're willing to spend on clicks and conversions, which networks
+              and geographical locations you want your ads to show on, and more.`,
   },
   {
-    label: 'Ready to Deliver',
+    label: 'Create an ad group',
     description:
-      'Your order is packed and ready for delivery. It will be dispatched shortly to the designated delivery address.',
+      'An ad group contains one or more ads which target a shared set of keywords.',
   },
   {
-    label: 'On the Way to Delivered',
-    description: `Your order is currently in transit. Our delivery team is en route to deliver your package to the specified location.`,
-  },
-  {
-    label: 'Delivered',
-    description: `Your order has been successfully delivered to the specified address. Thank you for choosing us! If you have any feedback or concerns, please let us know.`,
+    label: 'Create an ad',
+    description: `Try out different ad text to see what brings in the most customers,
+              and learn how to enhance your ads using features like ad extensions.
+              If you run into any problems with your ads, find out how to tell if
+              they're running and how to resolve approval issues.`,
   },
 ];
 
-const statuses = ["Order Confirmed", "Ready to Deliver", "On the Way to Delivered", "Delivered"];
+export default function VerticalLinearStepper() {
+  const [activeStep, setActiveStep] = React.useState(0);
 
-const StepperWithDropdown = ({ editable }) => {
-  const { statusIndex, setStatusIndex } = useContext(StepperContext);
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
 
-  const handleChange = (e) => {
-    const selectedIndex = statuses.indexOf(e.target.value);
-    setStatusIndex(selectedIndex);
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
   };
 
   return (
-    <div className="my-4">
-      {editable && ( // Render dropdown only if editable is true
-        <div>
-          <label className="text-xl mr-4 text-gray-500">Order Status</label>
-          <select
-            value={statuses[statusIndex]}
-            onChange={handleChange}
-            className="border-2 border-gray-500 px-4 py-2 w-full"
-          >
-            {statuses.map((status, index) => (
-              <option key={index} value={status}>
-                {status}
-              </option>
-            ))}
-          </select>
-        </div>
+    <Box sx={{ maxWidth: 400 }}>
+      <Stepper activeStep={activeStep} orientation="vertical">
+        {steps.map((step, index) => (
+          <Step key={step.label}>
+            <StepLabel
+              optional={
+                index === 2 ? (
+                  <Typography variant="caption">Last step</Typography>
+                ) : null
+              }
+            >
+              {step.label}
+            </StepLabel>
+            <StepContent>
+              <Typography>{step.description}</Typography>
+              <Box sx={{ mb: 2 }}>
+                <div>
+                  <Button
+                    variant="contained"
+                    onClick={handleNext}
+                    sx={{ mt: 1, mr: 1 }}
+                  >
+                    {index === steps.length - 1 ? 'Finish' : 'Continue'}
+                  </Button>
+                  <Button
+                    disabled={index === 0}
+                    onClick={handleBack}
+                    sx={{ mt: 1, mr: 1 }}
+                  >
+                    Back
+                  </Button>
+                </div>
+              </Box>
+            </StepContent>
+          </Step>
+        ))}
+      </Stepper>
+      {activeStep === steps.length && (
+        <Paper square elevation={0} sx={{ p: 3 }}>
+          <Typography>All steps completed - you&apos;re finished</Typography>
+          <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+            Reset
+          </Button>
+        </Paper>
       )}
-      <Box sx={{ maxWidth: 400 }}>
-        <Stepper activeStep={statusIndex} orientation="vertical">
-          {steps.map((step, index) => (
-            <Step key={step.label}>
-              <StepLabel>{step.label}</StepLabel>
-              <StepContent>
-                <Typography>{step.description}</Typography>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
-      </Box>
-    </div>
+    </Box>
   );
-};
-
-export default StepperWithDropdown;
+}

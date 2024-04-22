@@ -8,6 +8,7 @@ import Spinner from '../components/Spinner';
 
 
 
+
 const ShowTrack = () => {
 
   const [track, setTrack] = useState({});
@@ -43,6 +44,10 @@ const ShowTrack = () => {
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Address</span>
             <span>{track.address}</span>
+          </div>
+          <div className='my-4'>
+            <span className='text-xl mr-4 text-gray-500'>Order Status</span>
+            <span>{track.status}</span>
           </div>
          
         </div>

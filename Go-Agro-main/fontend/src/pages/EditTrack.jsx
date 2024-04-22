@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Spinner from "../components/Spinner";
 import BackButton from "../components/BackButton";
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import VerticalLinearStepper from "./Stepper";
+
 
 const EditTrack = () => {
     const [OrderId, setOrderId] = useState('');
     const [address, setAddress] = useState('');
-    const [status, setStatus] = useState('Order Confirmed'); // Set initial status here
+    const { statusIndex, setStatusIndex } = useContext(StepperContext); // Get statusIndex and setStatusIndex from context
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const {id} = useParams();
@@ -18,7 +20,6 @@ const EditTrack = () => {
         .then((response) =>{
             setOrderId(response.data.OrderId);
             setAddress(response.data.address);
-            setStatus(response.data.status)
             setLoading(false);
 
         }).catch((error) =>{
@@ -33,7 +34,7 @@ const EditTrack = () => {
         const data = {
             OrderId,
             address,
-            status,
+            status: statusIndex === -1 ? 'Order Confirmed' : statuses[statusIndex], // Check if statusIndex is -1, if so, set status to 'Order Confirmed'
         };
         setLoading(true);
         axios
@@ -74,14 +75,7 @@ const EditTrack = () => {
                     />
                 </div>
                 <div className="my-4">
-                    <label className="text-xl mr-4 text-gray-500">Order Status</label>
-                    <input
-                        type="text"
-                        value={status}
-                        onChange={(e) => setStatus(e.target.value)}
-                        className="border-2 border-gray-500 px-4 w-full"
-                        disabled // Prevent user from editing the status field
-                    />
+                    <StepperWithDropdown editable={true} /> {/* Render the stepper component */}
                 </div>
                 <button className="p-2 bg-sky-300 m-8" onClick={handleEditTrack}>
                     Edit Track
