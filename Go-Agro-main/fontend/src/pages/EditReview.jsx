@@ -25,7 +25,7 @@ const EditReviews = () => {
     setLoading(true);
     axios.get(`http://localhost:5000/reviews/${id}`)
       .then((response) => {
-        setBuyername(response.data.username);
+        setBuyername(response.data.buyername);
         setContent(response.data.content)
         setPublishDate(response.data.publishDate)
         setRating(response.data.rating)

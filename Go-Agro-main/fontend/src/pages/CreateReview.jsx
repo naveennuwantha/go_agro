@@ -25,12 +25,6 @@ const CreateReviews = () => {
 
   const handleSaveReview = () => {
 
-    // Check if any of the required fields are empty
-    if (!username || !content || !rating || !publishDate) {
-      // Show a popup message indicating the required fields
-      enqueueSnackbar('Please fill in all required fields', { variant: 'error' });
-      return; // Exit the function early if any required field is empty
-    }
     const data = {
       content,
       publishDate,

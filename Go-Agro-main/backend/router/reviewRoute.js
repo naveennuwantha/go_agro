@@ -12,6 +12,7 @@ const validateFields = (req,res,next) =>{
         "ordernumber",
         "type",
     ];
+    // Check if all required fields are present
     for(const field of requiredFields){
         if (!req.body[field]) {
             return res
