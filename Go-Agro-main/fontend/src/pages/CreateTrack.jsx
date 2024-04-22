@@ -3,7 +3,7 @@ import React from 'react'
 const CreateTrack = () => {
   return (
     <div>
-      
+      create
     </div>
   )
 }
