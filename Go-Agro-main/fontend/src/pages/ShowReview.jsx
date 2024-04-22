@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import BackButton from '../components/BackButton';
+import { BsArrowLeft } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import '../App.css';
 
@@ -27,7 +28,14 @@ const ShowReview = () => {
 
   return (
     <div className='p-4'>
-      <BackButton />
+      <div className='flex'>
+        <Link
+          to="/reviews/show"
+          className='bg-green-800 text-white px-4 py-1 rounded-lg w-fit absolute  left-4'
+        >
+          <BsArrowLeft className='text-2xl' />
+        </Link>
+      </div>
 
       {loading ? (
         <Spinner />

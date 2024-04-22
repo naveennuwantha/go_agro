@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import BackButton from '../components/BackButton';
+import { BsArrowLeft } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -87,7 +88,14 @@ const EditReviews = () => {
 
   return (
     <div className='p-4'>
-      <BackButton />
+      <div className='flex'>
+        <Link
+          to="/reviews/show"
+          className='bg-green-800 text-white px-4 py-1 rounded-lg w-fit absolute  left-4'
+        >
+          <BsArrowLeft className='text-2xl' />
+        </Link>
+      </div>
       <h1 className='text-3xl my-5 text-center text-green-700'>Edit My Review</h1>
       {loading ? <Spinner /> : ''}
       <div className='flex flex-col border-2 rounded-xl w-[950px] shadow-md p-8 mx-auto'>
