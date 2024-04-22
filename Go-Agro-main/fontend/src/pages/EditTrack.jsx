@@ -3,13 +3,12 @@ import Spinner from "../components/Spinner";
 import BackButton from "../components/BackButton";
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import VerticalLinearStepper from "./Stepper";
+
 
 
 const EditTrack = () => {
     const [OrderId, setOrderId] = useState('');
     const [address, setAddress] = useState('');
-    const { statusIndex, setStatusIndex } = useContext(StepperContext); // Get statusIndex and setStatusIndex from context
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const {id} = useParams();
@@ -74,9 +73,7 @@ const EditTrack = () => {
                         className="border-2 border-gray-500 px-4 w-full"
                     />
                 </div>
-                <div className="my-4">
-                    <StepperWithDropdown editable={true} /> {/* Render the stepper component */}
-                </div>
+                
                 <button className="p-2 bg-sky-300 m-8" onClick={handleEditTrack}>
                     Edit Track
                 </button>
