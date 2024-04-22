@@ -14,7 +14,7 @@ const ShowTrack = () => {
     useEffect(() => {
         setLoading(true);
         axios
-          .get(`http://localhost:5555/tracks/${id}`)
+          .get(`http://localhost:5000/tracks/${id}`)
           .then((response) => {
             setTrack(response.data);
             setLoading(false);

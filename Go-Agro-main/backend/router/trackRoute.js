@@ -1,16 +1,14 @@
 import express from "express";
-import { Track } from "../modle/trackModel";
+import { Track } from "../modle/trackModel.js";
 const router = express.Router();
-
-
-
 
 // Route for saving a new Track
 router.post('/', async (request, response) =>{
     try{
         if(
             !request.body.OrderId ||
-            !request.body.address
+            !request.body.address ||
+            !request.body.status
             )  {
             return response.status(400).send({
                 message:'Send required field:OrderId',
@@ -19,6 +17,7 @@ router.post('/', async (request, response) =>{
         const newTrack = {
             OrderId: request.body.OrderId,
             address: request.body.address,
+            status :request.body.status
         };
         const track = await Track.create(newTrack);
         return response.status(201).send(track);
@@ -66,7 +65,7 @@ router.put('/:id',async (request, response) =>{
         !request.body.address
         ){
             return response.status(400).send({
-                message: 'Send all required fields:OrderId, address',
+                message: 'Send all required fields:OrderId, address, status',
             });
         }
 
