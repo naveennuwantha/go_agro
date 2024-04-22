@@ -5,7 +5,8 @@ import Spinner from "../components/Spinner";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle } from "react-icons/bs";
 import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
-
+import TracksCard from "../components/home/TracksCard";
+import TracksTable from "../components/home/TracksTable";
 
 
 const Home = () => {
@@ -32,13 +33,13 @@ const Home = () => {
         <div className="flex justify-center items-center gap-x-4">
           <button
             className="bg-sky-300 hover:bg-sky-600 px-4 py-1"
-            onClick={() => setCreateType('table')}
+            onClick={() => setShowType('table')}
           >
             Table
           </button>
           <button
           className="bg-sky-300 hover:bg-sky-600 px-4 py-1"
-          onClick={() => setCreateType('card')}
+          onClick={() => setShowType('card')}
         >
           Card
         </button>
@@ -49,7 +50,7 @@ const Home = () => {
                     <MdOutlineAddBox className="text-sky-800 text-4xl" />
                 </Link>
             </div>
-            {loading ? <Spinner/> :<TracksTable tracks={tracks}/>}
+            {loading ? <Spinner/> : showType === 'table' ?<TracksTable tracks={tracks}/> : (<TracksCard tracks = {tracks}/>)}
                
           
         </div>
