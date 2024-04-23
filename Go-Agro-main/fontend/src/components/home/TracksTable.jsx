@@ -9,11 +9,11 @@ const TracksTable = ({ tracks }) => {
         <table className="w-full border-separate border-spacing-2">
             <thead>
                 <tr>
-                    <th className="border border-slate-600 rounded-md">No</th>
-                    <th className="border border-slate-600 rounded-md">Order ID</th>
-                    <th className="border border-slate-600 rounded-md max-md:hidden">Address</th>
-                    <th className="border border-slate-600 rounded-md">Status</th>
-                    <th className="border border-slate-600 rounded-md">Operations</th>
+                    <th className="border border-slate-600 rounded-md text-center">No</th>
+                    <th className="border border-slate-600 rounded-mdtext-center">Order ID</th>
+                    <th className="border border-slate-600 rounded-md text-center">Address</th>
+                    <th className="border border-slate-600 rounded-md text-center">Status</th>
+                    <th className="border border-slate-600 rounded-md text-center">Operations</th>
 
                 </tr>
 
