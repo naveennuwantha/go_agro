@@ -5,14 +5,13 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
-import VerticalLinearStepper from './Stepper';
-import { StepperContext } from "./StepperContext"; // Import the StepperContext
+
 
 
 
 
 const ShowTrack = () => {
-  const { statusIndex } = useContext(StepperContext); 
+  
   const [track, setTrack] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
@@ -51,8 +50,6 @@ const ShowTrack = () => {
             <span className='text-xl mr-4 text-gray-500'>Order Status</span>
             <span>{track.status}</span>
 
-             {/* Render the Stepper component with dropdown disabled */}
-          <Stepper statusIndex={statusIndex} editable={false} />
           </div>
          
         </div>
