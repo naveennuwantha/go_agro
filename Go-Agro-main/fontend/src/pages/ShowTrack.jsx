@@ -1,17 +1,11 @@
-// ShowTrack.jsx
-
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
-
-
-
-
+import StepperWithDropdown from './Stepper'; // Corrected import
 
 const ShowTrack = () => {
-  
   const [track, setTrack] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
@@ -46,12 +40,7 @@ const ShowTrack = () => {
             <span className='text-xl mr-4 text-gray-500'>Address</span>
             <span>{track.address}</span>
           </div>
-          <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Order Status</span>
-            <span>{track.status}</span>
-
-          </div>
-         
+          <StepperWithDropdown editable={false} /> {/* Render Stepper component */}
         </div>
       )}
     </div>
